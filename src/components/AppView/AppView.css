@@ -1,0 +1,22 @@
+.app-view {
+    width: 100%;
+    height: 100vh;
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.resize-handle {
+    width: 2px;
+    background: #ccc;
+    cursor: col-resize;
+    transition: background 0.2s ease;
+}
+
+.resize-handle:hover {
+    background: #888;
+}
