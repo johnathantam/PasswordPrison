@@ -1,8 +1,9 @@
 .sidebar-container {
-    width: 100%;
+    width: 225px;
     height: 100%;
     container-type: inline-size;
     background-color: #ffffff;
+    border-right: solid 2px hsl(227, 94%, 51%);
 }
 
 /* Sidebar header */
@@ -31,6 +32,41 @@
     height: 24px;
     stroke-width: 2;
     color: hsl(227, 100%, 75%);
+}
+
+.sidebar-logo-toggle {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 25px;
+    background-color: hsl(227, 94%, 51%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.sidebar-logo-toggle .sidebar-header-logo {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    color: hsl(227, 100%, 75%);
+    transition: opacity 0.15s ease;
+}
+
+.sidebar-logo-toggle .toggle-icon {
+    opacity: 0;
+}
+
+.sidebar-logo-toggle:hover .logo-icon {
+    opacity: 0;
+}
+.sidebar-logo-toggle:hover .toggle-icon {
+    opacity: 1;
 }
 
 .sidebar-header-title {
@@ -111,32 +147,30 @@
 
 /* Collapsible sidebar feature */
 
-@container (max-width: 150px) {
-
-    .sidebar-header-title,
-    .sidebar-item-title,
-    .sidebar-divider-title {
-        display: none;
-    }
-
-    .sidebar-header-container {
-        justify-content: center;
-        padding: 16px 0;
-    }
-
-    .sidebar-item {
-        justify-content: center;
-        margin: 0 8px;
-        padding: 0;
-    }
-
-    .sidebar-divider {
-        margin: 12px 8px;
-    }
-
-    .sidebar-divider::before,
-    .sidebar-divider::after {
-        margin: 0;
-        /* remove the gap now that there's no text between them */
-    }
+.sidebar-container.collapsed {
+    width: 60px;
+}
+.sidebar-container.collapsed .sidebar-header-title,
+.sidebar-container.collapsed .sidebar-item-title,
+.sidebar-container.collapsed .sidebar-divider-title {
+    display: none;
+}
+.sidebar-container.collapsed .sidebar-header-container {
+    justify-content: center;
+    padding: 16px 0;
+}
+.sidebar-container.collapsed .sidebar-collapse-btn {
+    margin-left: 0;
+}
+.sidebar-container.collapsed .sidebar-item {
+    justify-content: center;
+    margin: 0 8px;
+    padding: 0;
+}
+.sidebar-container.collapsed .sidebar-divider {
+    margin: 12px 8px;
+}
+.sidebar-container.collapsed .sidebar-divider::before,
+.sidebar-container.collapsed .sidebar-divider::after {
+    margin: 0;
 }

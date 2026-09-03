@@ -1,14 +1,34 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+pub mod commands;
+pub mod crypto;
+pub mod models;
+pub mod storage;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        // Add plugins for file system access
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .plugin(tauri_plugin_fs::init())
+
+        // Setup the application, creating the vault data directory if it doesn't exist
+        .setup(|app| {
+            // Grab the app handle
+            let app_handle = app.handle();
+            
+            // Setup the file infrastructure of the program
+            storage::vault_directory::initialize_vault_data_directory(app_handle)?;
+            storage::vault_file::initialize_vault_data_file(app_handle)?;
+
+            Ok(())
+        })
+
+        // Register commands
+        .invoke_handler(tauri::generate_handler![
+            // commands::vault::initialize_vault_directory,
+            // commands::vault::get_vault_directory
+            commands::vault::save_item_in_vault 
+        ])
+
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
