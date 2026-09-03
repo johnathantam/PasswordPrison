@@ -1,13 +1,21 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use crate::models::encrypted_vault::EncrypyedVault;
 use crate::storage::vault_directory::get_vault_data_directory;
 
 pub fn initialize_vault_data_file(app: &tauri::AppHandle) -> Result<(), String> {
     let vault_data_file_path = get_vault_data_file_path(app)?;
 
     if !vault_data_file_path.exists() {
-        fs::write(&vault_data_file_path, b"")
+        let vault = EncrypyedVault {
+            items: Vec::new(),
+        };
+
+        let data = serde_json::to_vec(&vault)
+            .map_err(|_| "Failed to serialize initial vault".to_string())?;
+
+        fs::write(&vault_data_file_path, data)
             .map_err(|_| "Failed to create vault file".to_string())?;
     }
 

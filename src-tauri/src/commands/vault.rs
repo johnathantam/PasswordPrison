@@ -12,9 +12,12 @@ pub fn save_item_in_vault(app: AppHandle, item: VaultItem) -> Result<(), String>
     // Grab the vault item directory
     let vault_data_file_path = get_vault_data_file_path(&app)?;
 
+
     // Read existing vault
     let data = fs::read(&vault_data_file_path)
         .map_err(|_| "Failed to read vault file".to_string())?;
+
+    println!("Read vault data from file: {:?}", vault_data_file_path);
 
     // Deserialize existing vault
     let mut vault: EncrypyedVault = serde_json::from_slice(&data)
