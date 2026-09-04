@@ -4,7 +4,31 @@
       "id": "1788329389032596000",
       "title": "Add save password in rust",
       "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788443783144679000",
+      "title": "Add get vault data in rust",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788443790915511000",
+      "title": "Add remove item in rust",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788443886629800000",
+      "title": "Add updated item in rust",
+      "description": "",
       "status": "pending"
+    },
+    {
+      "id": "1788489033315208000",
+      "title": "Make add password functionality in UI",
+      "description": "",
+      "status": "in_progress"
     }
   ]
 }

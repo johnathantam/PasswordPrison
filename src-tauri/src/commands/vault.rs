@@ -1,34 +1,28 @@
-use std::fs;
 use tauri::AppHandle;
 use uuid::Uuid;
 
-use crate::{crypto::{encrypt::encrypt_data, key_derivation::derive_key, nonce::generate_nonce, salt::generate_salt}, models::{encrypted_vault::EncrypyedVault, encrypted_vault_item::EncrypyedVaultItem, vault_item::VaultItem}, storage::vault_file::get_vault_data_file_path};
+use crate::{crypto::{encrypt::encrypt_data, key_derivation::derive_key, nonce::generate_nonce, salt::generate_salt}, models::{encrypted_vault::EncrypyedVault, encrypted_vault_item::EncryptedVaultItem, vault_item::VaultItem}, storage::vault_file::{get_vault_data_file_items, write_vault_data_file_items}};
 
 // use crate::models::vault_item::VaultItem;
 // use crate::storage::vault_directory::get_vault_data_directory;
 
 #[tauri::command]
-pub fn save_item_in_vault(app: AppHandle, item: VaultItem) -> Result<(), String> {
-    // Grab the vault item directory
-    let vault_data_file_path = get_vault_data_file_path(&app)?;
+pub fn get_vault_items(app: AppHandle) -> Result<EncrypyedVault, String> {
+    let vault = get_vault_data_file_items(&app)?;
+    Ok(vault)
+}
 
-
+#[tauri::command]
+pub fn add_item_in_vault(app: AppHandle, item: VaultItem) -> Result<(), String> {
     // Read existing vault
-    let data = fs::read(&vault_data_file_path)
-        .map_err(|_| "Failed to read vault file".to_string())?;
-
-    println!("Read vault data from file: {:?}", vault_data_file_path);
-
-    // Deserialize existing vault
-    let mut vault: EncrypyedVault = serde_json::from_slice(&data)
-        .map_err(|_| "Failed to deserialize vault".to_string())?;
+    let mut vault = get_vault_data_file_items(&app)?;
 
     // Encrypt the new item's password and store the item
     let salt = generate_salt();
     let key = derive_key(item.master_key.as_bytes(), &salt)?;
     let nonce_bytes = generate_nonce();
     let encrypted_password = encrypt_data(item.password.as_bytes(), &key, &nonce_bytes)?;
-    let new_vault_item = EncrypyedVaultItem {
+    let new_vault_item = EncryptedVaultItem {
         name: item.name,
         username: item.username,
         password: encrypted_password,
@@ -41,18 +35,29 @@ pub fn save_item_in_vault(app: AppHandle, item: VaultItem) -> Result<(), String>
         nonce: nonce_bytes
     };
 
+    // Add new vault item to be saved
     vault.items.push(new_vault_item);
-
-    // Serialize updated vault
-    let data = serde_json::to_vec(&vault)
-        .map_err(|_| "Failed to serialize vault".to_string())?;
-
-    println!("Current vault:");
-    println!("{:#?}", vault);
-
     // Save updated vault
-    fs::write(&vault_data_file_path, data)
-        .map_err(|_| "Failed to write vault file".to_string())?;
+    _ = write_vault_data_file_items(&app, vault)?;
+
+    Ok(())
+}
+
+#[tauri::command]
+pub fn remove_item_in_vault(app: AppHandle, item_id: String) -> Result<(), String> {
+    // Grab vault
+    let mut vault = get_vault_data_file_items(&app)?;
+    // Remove selected item id
+    for i in 0..vault.items.len() {
+        let vault_item = &vault.items[i];
+        if vault_item.id == item_id {
+            vault.items.remove(i);
+            break;
+        }
+    }
+
+    // Update the vault
+    _ = write_vault_data_file_items(&app, vault);
 
     Ok(())
 }

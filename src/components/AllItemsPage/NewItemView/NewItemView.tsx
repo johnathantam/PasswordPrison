@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Eye, EyeOff, RefreshCw, Copy, Globe, Plus, X } from "lucide-react";
-import type { Item } from "../../../types/item";
+import { VaultItem } from "../../../types/vaultItem";
 import "./NewItemView.css";
 
 interface NewItemViewProps {
     onCancel: () => void;
-    onSave: (newItem: Item) => void;
+    onSave: (newVaultItem: VaultItem) => void;
 }
 
 function NewItemView({ onCancel, onSave }: NewItemViewProps) {
@@ -13,6 +13,8 @@ function NewItemView({ onCancel, onSave }: NewItemViewProps) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [masterKey, setMasterKey] = useState("");
+    const [showMasterKey, setShowMasterKey] = useState(false);
     const [urls, setUrls] = useState([""]);
     const [notes, setNotes] = useState("");
 
@@ -22,6 +24,7 @@ function NewItemView({ onCancel, onSave }: NewItemViewProps) {
         for (let i = 0; i < 20; i++) {
             result += chars[Math.floor(Math.random() * chars.length)];
         }
+        
         setPassword(result);
         setShowPassword(true);
     }
@@ -41,13 +44,16 @@ function NewItemView({ onCancel, onSave }: NewItemViewProps) {
     }
 
     function handleSave() {
-        onSave?.({ 
-            name, 
-            username, 
-            password, 
-            urls: urls.filter(Boolean), 
-            notes 
-        });
+        const newVaultItem: VaultItem = {
+            name: name,
+            username: username,
+            password: password,
+            masterKey: masterKey,
+            urls: urls,
+            notes: notes
+        }
+
+        onSave?.(newVaultItem);
     }
 
     return (
@@ -114,6 +120,37 @@ function NewItemView({ onCancel, onSave }: NewItemViewProps) {
                             <Copy size={16} />
                         </button>
                     </div>
+                </div>
+
+                <div className="form-field">
+                    <label>Master Key</label>
+                    <div className="item-input-row">
+                        <input
+                            type={showMasterKey ? "text" : "password"}
+                            placeholder="Master Key"
+                            value={masterKey}
+                            onChange={(e) => setMasterKey(e.target.value)}
+                            className="form-input"
+                        />
+                        <button
+                            type="button"
+                            className="input-icon-btn"
+                            onClick={() => setShowMasterKey(!showMasterKey)}
+                            title={showMasterKey ? "Hide" : "Show"}
+                        >
+                            {showMasterKey ? <EyeOff size={16} /> : <Eye size={16} />}
+                        </button>
+                        <button
+                            type="button"
+                            className="input-icon-btn"
+                            onClick={() => navigator.clipboard.writeText(masterKey)}
+                            title="Copy"
+                        >
+                            <Copy size={16} />
+                        </button>
+                    </div>
+
+                    <span className="form-helper"> Used to encrypt and protect this item's password. </span>
                 </div>
 
                 <div className="form-field">

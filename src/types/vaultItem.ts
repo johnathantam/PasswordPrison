@@ -1,9 +1,10 @@
-interface Item {
+interface VaultItem {
     name: string;
     username: string;
     password: string;
+    masterKey: string;
     urls: string[];
     notes: string;
 }
 
-export type { Item }
+export type { VaultItem }

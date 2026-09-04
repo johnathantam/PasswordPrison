@@ -3,7 +3,8 @@ import { Group, Panel, Separator } from "react-resizable-panels";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, Plus } from "lucide-react";
 import { NewItemView } from "./NewItemView/NewItemView";
-import { Item } from "../../types/item";
+import { EncryptedVault } from "../../types/encryptedVault";
+import { EncryptedVaultItem } from "../../types/encryptedVaultItem";
 import { invoke } from "@tauri-apps/api/core";
 import "./AllItemsPage.css";
 
@@ -15,32 +16,59 @@ enum ActiveActionItemView {
 function AllItemsPage() {
     const navigate = useNavigate();
 
-    const [activeActionItem, setActiveActionItem] = useState<Item | null>(null);
-    const [actionActionItemView, setActionActionItemView] = useState<ActiveActionItemView>(ActiveActionItemView.NewItemView);
+    const [vaultItems, setVaultItems] = useState<EncryptedVaultItem[]>([]);
 
-    const handleSaveNewItem = (newItem: Item) => {
+    // const [activeActionItem, setActiveActionItem] = useState<Item | null>(null);
+    // const [actionActionItemView, setActionActionItemView] = useState<ActiveActionItemView>(ActiveActionItemView.NewItemView);
 
-    }
+    // const handleSaveNewItem = (newItem: Item) => {
 
-    console.log("AM I LOADED")
+    // }
 
+    // console.log("AM I LOADED")
+
+    // useEffect(() => {
+    //     console.log("HELLO YAS")
+    //     invoke("add_item_in_vault", {
+    //         item: {
+    //             name: "GitHub",
+    //             username: "john",
+    //             password: "mypassword",
+    //             master_key: "my-master-password",
+    //             urls: ["https://github.com"],
+    //             notes: "Test account",
+    //         },
+    //     })
+    //         .then(() => {
+    //             console.log("ITEM SAVED");
+    //         })
+    //         .catch((error) => {
+    //             console.error("SAVE FAILED:", error);
+    //         });
+        
+    //     invoke<EncryptedVault>("get_vault_items").then((encryptedVault: EncryptedVault) => {
+    //         console.log(encryptedVault.items)
+    //         invoke("remove_item_in_vault", { itemId: encryptedVault.items[0].id })
+    //             .then(() => {
+    //                 console.log("REMOVED")
+    //             })
+    //             .catch((error) => {
+    //                 console.error(error)
+    //             })
+    //     }).catch((error) => {
+    //         console.error("GET VAULT ITEMS FAILED:", error);
+    //     });
+    // }, [])
+
+    // On page load
     useEffect(() => {
-        console.log("HELLO YAS")
-        invoke("save_item_in_vault", {
-            item: {
-                name: "GitHub",
-                username: "john",
-                password: "mypassword",
-                master_key: "my-master-password",
-                urls: ["https://github.com"],
-                notes: "Test account",
-            },
-        })
-            .then(() => {
-                console.log("ITEM SAVED");
+        // Fetch items
+        invoke<EncryptedVault>("get_vault_items")
+            .then((encryptedVault) => {
+                setVaultItems(encryptedVault.items);
             })
             .catch((error) => {
-                console.error("SAVE FAILED:", error);
+                console.error("GET VAULT ITEMS FAILED:", error);
             });
     }, [])
 

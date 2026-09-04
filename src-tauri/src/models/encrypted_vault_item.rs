@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct EncrypyedVaultItem {
+pub struct EncryptedVaultItem {
     pub name: String,
     pub username: String,
     pub password: Vec<u8>,

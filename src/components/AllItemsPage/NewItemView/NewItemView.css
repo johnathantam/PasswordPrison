@@ -38,6 +38,11 @@
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
+.form-helper {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #0f6af1;
+}
 
 .form-input, .form-textarea {
     border: 1px solid hsl(227, 100%, 88%);

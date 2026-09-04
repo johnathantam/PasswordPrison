@@ -24,9 +24,9 @@ pub fn run() {
 
         // Register commands
         .invoke_handler(tauri::generate_handler![
-            // commands::vault::initialize_vault_directory,
-            // commands::vault::get_vault_directory
-            commands::vault::save_item_in_vault 
+            commands::vault::get_vault_items,
+            commands::vault::add_item_in_vault,
+            commands::vault::remove_item_in_vault, 
         ])
 
         .run(tauri::generate_context!())
