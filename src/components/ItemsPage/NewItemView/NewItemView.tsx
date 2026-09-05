@@ -5,10 +5,10 @@ import "./NewItemView.css";
 
 interface NewItemViewProps {
     onCancel: () => void;
-    onSave: (newVaultItem: VaultItem) => void;
+    onConfirm: (newVaultItem: VaultItem) => void;
 }
 
-function NewItemView({ onCancel, onSave }: NewItemViewProps) {
+function NewItemView({ onCancel, onConfirm }: NewItemViewProps) {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -48,12 +48,12 @@ function NewItemView({ onCancel, onSave }: NewItemViewProps) {
             name: name,
             username: username,
             password: password,
-            masterKey: masterKey,
+            master_key: masterKey,
             urls: urls,
             notes: notes
         }
 
-        onSave?.(newVaultItem);
+        onConfirm?.(newVaultItem);
     }
 
     return (

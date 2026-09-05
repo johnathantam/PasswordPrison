@@ -1,0 +1,51 @@
+.item-listing-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.item-listing-container:hover {
+    background-color: hsl(227, 100%, 95%);
+}
+
+.item-listing-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background-color: hsl(227, 100%, 94%);
+    color: hsl(227, 94%, 51%);
+}
+
+.item-listing-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 2px;
+}
+
+.item-listing-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a2e;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-listing-username {
+    font-size: 13px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

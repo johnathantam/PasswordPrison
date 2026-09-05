@@ -1,7 +1,7 @@
 use tauri::AppHandle;
 use uuid::Uuid;
 
-use crate::{crypto::{encrypt::encrypt_data, key_derivation::derive_key, nonce::generate_nonce, salt::generate_salt}, models::{encrypted_vault::EncrypyedVault, encrypted_vault_item::EncryptedVaultItem, vault_item::VaultItem}, storage::vault_file::{get_vault_data_file_items, write_vault_data_file_items}};
+use crate::{crypto::{encrypt::encrypt_data, decrypt::decrypt_data, key_derivation::derive_key, nonce::generate_nonce, salt::generate_salt}, models::{encrypted_vault::EncrypyedVault, encrypted_vault_item::EncryptedVaultItem, vault_item::VaultItem}, storage::vault_file::{get_vault_data_file_items, write_vault_data_file_items}};
 
 // use crate::models::vault_item::VaultItem;
 // use crate::storage::vault_directory::get_vault_data_directory;
@@ -60,4 +60,25 @@ pub fn remove_item_in_vault(app: AppHandle, item_id: String) -> Result<(), Strin
     _ = write_vault_data_file_items(&app, vault);
 
     Ok(())
+}
+
+#[tauri::command]
+pub fn decrypt_vault_item_password(app: AppHandle, item_id: String, master_key: String) -> Result<String, String> {
+    let vault = get_vault_data_file_items(&app)?;
+    let item = vault
+        .items
+        .iter()
+        .find(|item| item.id == item_id)
+        .ok_or_else(|| "Vault item not found".to_string())?;
+
+    let key = derive_key(master_key.as_bytes(), &item.salt)?;
+    
+    let password = decrypt_data(
+        &item.password,
+        &key,
+        &item.nonce,
+    )?;
+
+    String::from_utf8(password)
+        .map_err(|_| "Decrypted password is not valid UTF-8".to_string())
 }
