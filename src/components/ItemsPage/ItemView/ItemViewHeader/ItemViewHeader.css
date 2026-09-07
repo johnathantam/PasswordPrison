@@ -1,0 +1,7 @@
+.item-view-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid hsl(227, 94%, 51%);
+}

@@ -28,7 +28,37 @@
       "id": "1788489033315208000",
       "title": "Make add password functionality in UI",
       "description": "",
-      "status": "in_progress"
+      "status": "completed"
+    },
+    {
+      "id": "1788666015153054000",
+      "title": "Fix master key type differences",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788748900731489000",
+      "title": "fix edit decryption verify workflow",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788760523279954000",
+      "title": "Add link fetch profile for items",
+      "description": "",
+      "status": "pending"
+    },
+    {
+      "id": "1788760674934410000",
+      "title": "Update ui for item controls to match blue theme",
+      "description": "",
+      "status": "pending"
+    },
+    {
+      "id": "1788760697086430000",
+      "title": "work on adding categories and favourites",
+      "description": "",
+      "status": "pending"
     }
   ]
 }

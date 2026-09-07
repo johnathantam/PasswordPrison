@@ -5,7 +5,7 @@ import "./NewItemView.css";
 
 interface NewItemViewProps {
     onCancel: () => void;
-    onConfirm: (newVaultItem: VaultItem) => void;
+    onConfirm: (masterKey: string, newVaultItem: VaultItem) => void;
 }
 
 function NewItemView({ onCancel, onConfirm }: NewItemViewProps) {
@@ -48,12 +48,11 @@ function NewItemView({ onCancel, onConfirm }: NewItemViewProps) {
             name: name,
             username: username,
             password: password,
-            master_key: masterKey,
             urls: urls,
             notes: notes
         }
 
-        onConfirm?.(newVaultItem);
+        onConfirm?.(masterKey, newVaultItem);
     }
 
     return (

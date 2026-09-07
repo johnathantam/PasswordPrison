@@ -7,9 +7,9 @@ import { NewItemView } from "./NewItemView/NewItemView";
 import { EncryptedVault } from "../../types/encryptedVault";
 import { EncryptedVaultItem } from "../../types/encryptedVaultItem";
 import { invoke } from "@tauri-apps/api/core";
-import "./ItemsPage.css";
 import { VaultItem } from "../../types/vaultItem";
 import { ItemView } from "./ItemView/ItemView";
+import "./ItemsPage.css";
 
 enum ActiveActionItemView {
     NewItemView,
@@ -50,8 +50,30 @@ function ItemsPage() {
         switchActiveActionItem(itemSelected);
     }
 
-    const addNewItem = (newItem: VaultItem) => {
+    const editItem = (itemId: string, masterKey: string, newItemContent: VaultItem) => {
+        invoke("edit_item_in_vault", {
+            itemId: itemId,
+            masterKey: masterKey,
+            editedItem: newItemContent
+        })
+            .then(() => {
+                // Grab new elements
+                return invoke<EncryptedVault>("get_vault_items");
+            })
+            .then((encryptedVault: EncryptedVault) => {
+                // Update elements in ui
+                setVaultItems(encryptedVault.items);
+                setActiveActionItem(encryptedVault.items.find((item) => item.id === itemId) ?? null);
+                setActiveActionItemView(ActiveActionItemView.ItemListingView);
+            })
+            .catch((error) => {
+                alert(error);
+            })
+    }   
+
+    const addItem = (masterKey: string, newItem: VaultItem) => {
         invoke("add_item_in_vault", {
+            masterKey: masterKey,
             item: newItem
         })
             .then(() => {
@@ -61,6 +83,7 @@ function ItemsPage() {
             .then((encryptedVault: EncryptedVault) => {
                 // Update elements in ui
                 setVaultItems(encryptedVault.items);
+                setActiveActionItem(encryptedVault.items[encryptedVault.items.length - 1]);
                 setActiveActionItemView(ActiveActionItemView.ItemListingView);
             })
             .catch((error) => {
@@ -68,6 +91,24 @@ function ItemsPage() {
             })
     }
 
+    const removeItem = (itemId: string) => {
+        invoke("remove_item_in_vault", {
+            itemId: itemId
+        })
+            .then(() => {
+                // Grab new elements
+                return invoke<EncryptedVault>("get_vault_items");
+            })
+            .then((encryptedVault: EncryptedVault) => {
+                // Update elements in ui
+                setVaultItems(encryptedVault.items);
+                setActiveActionItem(null);
+                setActiveActionItemView(ActiveActionItemView.ItemListingView);
+            })
+            .catch((error) => {
+                alert(error);
+            })
+    }
 
     // On page load
     useEffect(() => {
@@ -135,10 +176,14 @@ function ItemsPage() {
                             {activeActionItemView === ActiveActionItemView.NewItemView ? (
                                 <NewItemView 
                                     onCancel={() => switchActiveActionItemView(ActiveActionItemView.ItemListingView)} 
-                                    onConfirm={(newVaultItem: VaultItem) => addNewItem(newVaultItem)}
+                                    onConfirm={(masterKey: string, newVaultItem: VaultItem) => addItem(masterKey, newVaultItem)}
                                 />
                             ) : (
-                                <ItemView item={activeActionItem} />
+                                <ItemView 
+                                    item={activeActionItem} 
+                                    onEdit={editItem}
+                                    onRemove={removeItem}
+                                />
                             )}
                         </div>
                     </Panel>

@@ -13,13 +13,13 @@ pub fn get_vault_items(app: AppHandle) -> Result<EncrypyedVault, String> {
 }
 
 #[tauri::command]
-pub fn add_item_in_vault(app: AppHandle, item: VaultItem) -> Result<(), String> {
+pub fn add_item_in_vault(app: AppHandle, master_key: String, item: VaultItem) -> Result<(), String> {
     // Read existing vault
     let mut vault = get_vault_data_file_items(&app)?;
 
     // Encrypt the new item's password and store the item
     let salt = generate_salt();
-    let key = derive_key(item.master_key.as_bytes(), &salt)?;
+    let key = derive_key(master_key.as_bytes(), &salt)?;
     let nonce_bytes = generate_nonce();
     let encrypted_password = encrypt_data(item.password.as_bytes(), &key, &nonce_bytes)?;
     let new_vault_item = EncryptedVaultItem {
@@ -63,6 +63,42 @@ pub fn remove_item_in_vault(app: AppHandle, item_id: String) -> Result<(), Strin
 }
 
 #[tauri::command]
+pub fn edit_item_in_vault(app: AppHandle, item_id: String, master_key: String, edited_item: VaultItem) -> Result<(), String> {
+    let mut vault = get_vault_data_file_items(&app)?;
+    let item = vault
+        .items
+        .iter_mut()
+        .find(|item| item.id == item_id)
+        .ok_or_else(|| "Vault item not found".to_string())?;
+
+    // Generate new encryption parameters.
+    let salt = generate_salt();
+    let key = derive_key(master_key.as_bytes(), &salt)?;
+    let nonce = generate_nonce();
+
+    // Encrypt the edited password.
+    let encrypted_password = encrypt_data(
+        edited_item.password.as_bytes(),
+        &key,
+        &nonce,
+    )?;
+
+    // Edit item
+    item.name = edited_item.name;
+    item.username = edited_item.username;
+    item.password = encrypted_password;
+    item.urls = edited_item.urls;
+    item.notes = edited_item.notes;
+    item.salt = salt;
+    item.nonce = nonce;
+
+    // Update the vault
+    _ = write_vault_data_file_items(&app, vault);
+
+    Ok(())
+}
+
+#[tauri::command]
 pub fn decrypt_vault_item_password(app: AppHandle, item_id: String, master_key: String) -> Result<String, String> {
     let vault = get_vault_data_file_items(&app)?;
     let item = vault
@@ -81,4 +117,20 @@ pub fn decrypt_vault_item_password(app: AppHandle, item_id: String, master_key: 
 
     String::from_utf8(password)
         .map_err(|_| "Decrypted password is not valid UTF-8".to_string())
+}
+
+#[tauri::command]
+pub fn verify_vault_item_master_key(app: AppHandle, item_id: String, master_key: String) -> Result<(), String> {
+    let vault = get_vault_data_file_items(&app)?;
+    let item = vault
+        .items
+        .iter()
+        .find(|item| item.id == item_id)
+        .ok_or_else(|| "Vault item not found".to_string())?;
+
+    let key = derive_key(master_key.as_bytes(), &item.salt)?;
+
+    decrypt_data(&item.password, &key, &item.nonce)?;
+
+    Ok(())
 }
