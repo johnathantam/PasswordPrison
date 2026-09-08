@@ -50,6 +50,26 @@ function ItemsPage() {
         switchActiveActionItem(itemSelected);
     }
 
+    const favouriteItem = (itemId: string, newFavouriteStatus: boolean) => {
+        invoke("favourite_item_in_vault", {
+            itemId: itemId,
+            newFavouriteStatus: newFavouriteStatus
+        })
+            .then(() => {
+                // Grab new elements
+                return invoke<EncryptedVault>("get_vault_items");
+            })
+            .then((encryptedVault: EncryptedVault) => {
+                // Update elements in ui
+                setVaultItems(encryptedVault.items);
+                setActiveActionItem(encryptedVault.items.find((item) => item.id === itemId) ?? null);
+                setActiveActionItemView(ActiveActionItemView.ItemListingView);
+            })
+            .catch((error) => {
+                alert(error);
+            })
+    }
+
     const editItem = (itemId: string, masterKey: string, newItemContent: VaultItem) => {
         invoke("edit_item_in_vault", {
             itemId: itemId,
@@ -163,6 +183,7 @@ function ItemsPage() {
                                         key={item.id}
                                         item={item}
                                         onClick={(item: EncryptedVaultItem) => selectItemListing(item)}
+                                        onFavourite={(itemId: string, favouriteStatus: boolean) => favouriteItem(itemId, favouriteStatus)}
                                     />
                                 ))}
                             </div>
@@ -174,15 +195,16 @@ function ItemsPage() {
                     <Panel defaultSize={65} minSize={"210px"}>
                         <div className="all-items-page-panel">
                             {activeActionItemView === ActiveActionItemView.NewItemView ? (
-                                <NewItemView 
+                                <NewItemView
                                     onCancel={() => switchActiveActionItemView(ActiveActionItemView.ItemListingView)} 
                                     onConfirm={(masterKey: string, newVaultItem: VaultItem) => addItem(masterKey, newVaultItem)}
                                 />
                             ) : (
-                                <ItemView 
+                                <ItemView key={activeActionItem?.id}
                                     item={activeActionItem} 
                                     onEdit={editItem}
                                     onRemove={removeItem}
+                                    onFavourite={favouriteItem}
                                 />
                             )}
                         </div>

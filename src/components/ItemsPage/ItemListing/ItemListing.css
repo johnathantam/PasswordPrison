@@ -49,3 +49,31 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.item-listing-favourite-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin-left: auto;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.item-listing-favourite-button:hover {
+    background-color: hsl(227, 100%, 90%);
+    color: hsl(227, 94%, 51%);
+}
+
+.item-listing-favourite-button.favourite {
+    color: hsl(227, 94%, 51%);
+}

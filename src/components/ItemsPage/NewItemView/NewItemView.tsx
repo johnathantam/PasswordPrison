@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, RefreshCw, Copy, Globe, Plus, X } from "lucide-react";
-import { VaultItem } from "../../../types/vaultItem";
+import { VaultItemCategory } from "../../../enums/vaultItemCategory";
+import type { VaultItem } from "../../../types/vaultItem";
 import "./NewItemView.css";
 
 interface NewItemViewProps {
@@ -10,6 +11,7 @@ interface NewItemViewProps {
 
 function NewItemView({ onCancel, onConfirm }: NewItemViewProps) {
     const [name, setName] = useState("");
+    const [category, setCategory] = useState<VaultItemCategory>(VaultItemCategory.Login);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +51,9 @@ function NewItemView({ onCancel, onConfirm }: NewItemViewProps) {
             username: username,
             password: password,
             urls: urls,
-            notes: notes
+            notes: notes,
+            is_favourite: false,
+            category: category,
         }
 
         onConfirm?.(masterKey, newVaultItem);
@@ -72,6 +76,23 @@ function NewItemView({ onCancel, onConfirm }: NewItemViewProps) {
                         className="form-input form-input-title"
                     />
                 </div>
+
+                <div className="form-field">
+                    <label htmlFor="item-category">Category</label>
+                    <select
+                        id="item-category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value as VaultItemCategory)}
+                        className="category-select"
+                    >
+                        <option className="category-select-option" value={VaultItemCategory.Login}>Login</option>
+                        <option className="category-select-option" value={VaultItemCategory.Finance}>Finance</option>
+                        <option className="category-select-option" value={VaultItemCategory.Social}>Social</option>
+                        <option className="category-select-option" value={VaultItemCategory.Work}>Work</option>
+                        <option className="category-select-option" value={VaultItemCategory.Shopping}>Shopping</option>
+                        <option className="category-select-option" value={VaultItemCategory.Other}>Other</option>
+                    </select>
+                </div> 
 
                 <div className="form-field">
                     <label>Username</label>

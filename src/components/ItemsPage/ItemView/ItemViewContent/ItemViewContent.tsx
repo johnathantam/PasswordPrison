@@ -73,6 +73,14 @@ function ItemViewContent({ item }: ItemViewContentProps) {
     return (
         <div className="item-view-content">
             <div className="item-view-field">
+                <label>Category</label>
+
+                <div className="item-view-value">
+                    {item.category}
+                </div>
+            </div>
+
+            <div className="item-view-field">
                 <label>Username</label>
 
                 <div className="item-view-input-row">

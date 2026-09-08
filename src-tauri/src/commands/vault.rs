@@ -28,6 +28,8 @@ pub fn add_item_in_vault(app: AppHandle, master_key: String, item: VaultItem) ->
         password: encrypted_password,
         urls: item.urls,
         notes: item.notes,
+        is_favourite: item.is_favourite,
+        category: item.category,
 
         id: Uuid::new_v4().to_string(),
 
@@ -91,6 +93,27 @@ pub fn edit_item_in_vault(app: AppHandle, item_id: String, master_key: String, e
     item.notes = edited_item.notes;
     item.salt = salt;
     item.nonce = nonce;
+
+    // Update the vault
+    _ = write_vault_data_file_items(&app, vault);
+
+    Ok(())
+}
+
+#[tauri::command]
+pub fn favourite_item_in_vault(app: AppHandle, item_id: String, new_favourite_status: bool) -> Result<(), String> {
+    let mut vault = get_vault_data_file_items(&app)?;
+    let item = vault
+        .items
+        .iter_mut()
+        .find(|item| item.id == item_id)
+        .ok_or_else(|| "Vault item not found".to_string())?;
+
+    println!("Changing favourite status of item {} with id {} to {}", item.is_favourite, item_id, new_favourite_status);
+
+    item.is_favourite = new_favourite_status;
+
+    
 
     // Update the vault
     _ = write_vault_data_file_items(&app, vault);

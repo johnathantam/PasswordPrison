@@ -7,4 +7,7 @@ pub struct VaultItem {
     pub password: String,
     pub urls: Vec<String>,
     pub notes: String,
+
+    pub is_favourite: bool,
+    pub category: String,
 }

@@ -7,6 +7,8 @@ pub struct EncryptedVaultItem {
     pub password: Vec<u8>,
     pub urls: Vec<String>,
     pub notes: String,
+    pub is_favourite: bool,
+    pub category: String,
 
     pub id: String,
 

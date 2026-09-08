@@ -10,10 +10,12 @@ interface ItemViewProps {
     item: EncryptedVaultItem | null;
     onEdit: (itemId: string, masterKey: string, newItemContent: VaultItem) => void;
     onRemove: (itemId: string) => void;
+    onFavourite: (itemId: string, favouriteStatus: boolean) => void;
 }
 
-function ItemView({ item, onEdit, onRemove }: ItemViewProps) {
+function ItemView({ item, onEdit, onRemove, onFavourite }: ItemViewProps) {
     const handleEditItem = (itemId: string, masterKey: string, newItemContent: VaultItem) => {
+        console.log(newItemContent)
         onEdit?.(itemId, masterKey, newItemContent);
     }
 
@@ -21,12 +23,16 @@ function ItemView({ item, onEdit, onRemove }: ItemViewProps) {
         onRemove?.(itemId);
     }
 
+    const handleFavouriteItem = (itemId: string, favouriteStatus: boolean) => {
+        onFavourite(itemId, favouriteStatus);
+    }
+
     return (
         item === null ? (
             <ItemViewEmpty></ItemViewEmpty>
         ) : (
             <div className="item-view-container">
-                <ItemViewHeader item={item}></ItemViewHeader>
+                <ItemViewHeader item={item} onFavourite={handleFavouriteItem}></ItemViewHeader>
                 <ItemViewContent item={item}></ItemViewContent>
                 <ItemViewControls item={item} onEdit={handleEditItem} onRemove={handleDeleteItem}></ItemViewControls>
             </div>

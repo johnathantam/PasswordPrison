@@ -28,6 +28,7 @@ pub fn run() {
             commands::vault::add_item_in_vault,
             commands::vault::remove_item_in_vault, 
             commands::vault::edit_item_in_vault,
+            commands::vault::favourite_item_in_vault,
 
             commands::vault::decrypt_vault_item_password,
             commands::vault::verify_vault_item_master_key,

@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { Globe, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { EncryptedVaultItem } from "../../../../../types/encryptedVaultItem";
+import { VaultItemCategory } from "../../../../../enums/vaultItemCategory";
 import { VaultItem } from "../../../../../types/vaultItem";
 import "./ItemEditControlsView.css";
 
@@ -26,6 +27,7 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
 
     // Edit form input states
     const [editName, setEditName] = useState("");
+    const [editCategory, setEditCategory] = useState<VaultItemCategory>(VaultItemCategory.Login);
     const [editUsername, setEditUsername] = useState("");
     const [editPassword, setEditPassword] = useState("");
     const [editMasterKey, setEditMasterKey] = useState("");
@@ -49,6 +51,7 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
         setDecryptedPassword(null);
 
         setEditName("");
+        setEditCategory(VaultItemCategory.Login);
         setEditUsername("");
         setEditPassword("");
         setEditUrls([]);
@@ -72,6 +75,7 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
             
             setDecryptedPassword(decryptedPassword);
             setEditName(item.name);
+            setEditCategory(item.category); 
             setEditUsername(item.username);
             setEditPassword(decryptedPassword);
             setEditUrls([...item.urls]);
@@ -121,6 +125,8 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
             password: editPassword,
             urls: editUrls,
             notes: editNotes,
+            is_favourite: item.is_favourite,
+            category: editCategory,
         };
 
         onEdit(item.id, editMasterKey, editedItem);
@@ -128,10 +134,10 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
     };
 
     return (
-        <div className="item-view-control-section">
+        <div className="item-edit-control-section">
             <button
                 type="button"
-                className="item-view-control"
+                className="item-edit-control"
                 onClick={() => {
                     if (editState === EditState.Closed) {
                         startEditingItem();
@@ -140,19 +146,23 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                     }
                 }}
             >
-                <div className="item-view-control-content">
-                    <span className="item-view-control-title">
+                <div className="item-edit-control-content">
+                    <span className="item-edit-control-title">
                         Edit password
                     </span>
 
-                    <span className="item-view-control-description">
+                    <span className="item-edit-control-description">
                         Update the username, password, URLs, or
                         notes.
                     </span>
                 </div>
 
                 <span
-                    className={`item-view-control-arrow ${editState !== EditState.Closed ? "open" : ""}`}
+                    className={`item-edit-control-arrow ${
+                        editState !== EditState.Closed
+                            ? "open"
+                            : ""
+                    }`}
                 >
                     →
                 </span>
@@ -161,8 +171,8 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
             {/* EDIT MASTER KEY */}
 
             {editState === EditState.MasterKey && (
-                <div className="item-view-control-panel">
-                    <div className="master-key-prompt-header">
+                <div className="item-edit-control-panel">
+                    <div className="item-edit-master-key-prompt-header">
                         <span>Enter Master Key</span>
 
                         <p>
@@ -171,7 +181,7 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                         </p>
                     </div>
 
-                    <div className="master-key-prompt-row">
+                    <div className="item-edit-master-key-prompt-row">
                         <input
                             type="password"
                             placeholder="Master Key"
@@ -180,13 +190,15 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                                 setEditMasterKeyPromptInput(
                                     e.target.value
                                 );
-                                setEditMasterKeyPromptInputError(null);
+                                setEditMasterKeyPromptInputError(
+                                    null
+                                );
                             }}
                             className="form-input"
                             autoFocus
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") {
-                                    unlockEditForm(); 
+                                    unlockEditForm();
                                 }
 
                                 if (e.key === "Escape") {
@@ -230,9 +242,9 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
             {/* EDIT FORM */}
 
             {editState === EditState.Form && (
-                <div className="item-view-control-panel">
-                    <div className="edit-item-form">
-                        <div className="edit-item-form-header">
+                <div className="item-edit-control-panel">
+                    <div className="item-edit-form">
+                        <div className="item-edit-form-header">
                             <div>
                                 <h4>Edit password</h4>
 
@@ -243,21 +255,82 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                             </div>
                         </div>
 
-                        <div className="item-view-field">
-                            <label htmlFor="edit-name">
-                                Name
-                            </label>
+                        <div className="item-edit-form-fields">
+                            <div className="item-view-field">
+                                <label htmlFor="edit-name">
+                                    Name
+                                </label>
 
-                            <input
-                                id="edit-name"
-                                type="text"
-                                className="form-input"
-                                value={editName}
-                                onChange={(e) => setEditName(e.target.value)}
-                            />
-                        </div>
+                                <input
+                                    id="edit-name"
+                                    type="text"
+                                    className="form-input"
+                                    value={editName}
+                                    onChange={(e) =>
+                                        setEditName(e.target.value)
+                                    }
+                                />
+                            </div>
 
-                        <div className="edit-item-form-fields">
+                            <div className="item-view-field">
+                                <label htmlFor="edit-category">
+                                    Category
+                                </label>
+
+                                <select
+                                    id="edit-category"
+                                    value={editCategory}
+                                    onChange={(e) =>
+                                        setEditCategory(
+                                            e.target.value as VaultItemCategory
+                                        )
+                                    }
+                                    className="category-select"
+                                >
+                                    <option
+                                        className="category-select-option"
+                                        value={VaultItemCategory.Login}
+                                    >
+                                        Login
+                                    </option>
+
+                                    <option
+                                        className="category-select-option"
+                                        value={VaultItemCategory.Finance}
+                                    >
+                                        Finance
+                                    </option>
+
+                                    <option
+                                        className="category-select-option"
+                                        value={VaultItemCategory.Social}
+                                    >
+                                        Social
+                                    </option>
+
+                                    <option
+                                        className="category-select-option"
+                                        value={VaultItemCategory.Work}
+                                    >
+                                        Work
+                                    </option>
+
+                                    <option
+                                        className="category-select-option"
+                                        value={VaultItemCategory.Shopping}
+                                    >
+                                        Shopping
+                                    </option>
+
+                                    <option
+                                        className="category-select-option"
+                                        value={VaultItemCategory.Other}
+                                    >
+                                        Other
+                                    </option>
+                                </select>
+                            </div>
+
                             <div className="item-view-field">
                                 <label htmlFor="edit-username">
                                     Username
@@ -295,21 +368,25 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                             </div>
 
                             <div className="item-view-field">
-                                <label htmlFor="edit-new-master-key">
-                                    New Master Key
+                                <label htmlFor="edit-master-key">
+                                    Master Key
                                 </label>
 
                                 <input
-                                    id="edit-new-master-key"
-                                    type="text"
+                                    id="edit-master-key"
+                                    type="password"
                                     className="form-input"
                                     value={editMasterKey}
-                                    onChange={(e) => setEditMasterKey(e.target.value)}
-                                    placeholder="Leave blank to keep current master key"
+                                    onChange={(e) =>
+                                        setEditMasterKey(
+                                            e.target.value
+                                        )
+                                    }
                                 />
 
                                 <span className="form-helper">
-                                    Changing the master key will re-encrypt this password.
+                                    Changing the master key will
+                                    re-encrypt this password.
                                 </span>
                             </div>
 
@@ -343,8 +420,14 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                                             <button
                                                 type="button"
                                                 className="input-icon-btn"
-                                                onClick={() => removeEditUrl(index)}
-                                                aria-label={`Remove URL ${index + 1}`}
+                                                onClick={() =>
+                                                    removeEditUrl(
+                                                        index
+                                                    )
+                                                }
+                                                aria-label={`Remove URL ${
+                                                    index + 1
+                                                }`}
                                                 title="Remove URL"
                                             >
                                                 <Trash2 size={15} />
@@ -388,7 +471,7 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                             </span>
                         )}
 
-                        <div className="edit-item-form-actions">
+                        <div className="item-edit-form-actions">
                             <button
                                 type="button"
                                 className="btn-secondary"
@@ -409,7 +492,7 @@ function ItemEditControlsView({ item, onEdit }: ItemEditControlsViewProps) {
                 </div>
             )}
         </div>
-    )
+    );
 }
 
 export { ItemEditControlsView };

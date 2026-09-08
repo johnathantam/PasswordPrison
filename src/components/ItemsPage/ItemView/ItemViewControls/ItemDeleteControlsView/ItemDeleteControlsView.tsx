@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { EncryptedVaultItem } from "../../../../../types/encryptedVaultItem";
-import "./ItemDeleteControlsView.css";
 import { invoke } from "@tauri-apps/api/core";
+import "./ItemDeleteControlsView.css";
 
 enum DeleteState {
     Closed,
@@ -59,10 +59,10 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
     };
 
     return (
-        <div className="item-view-control-section">
+        <div className="item-delete-controls-section">
             <button
                 type="button"
-                className="item-view-control item-view-control-danger"
+                className="item-delete-control"
                 onClick={() => {
                     if (deleteState === DeleteState.Closed) {
                         startItemDeletion();
@@ -71,19 +71,19 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
                     }
                 }}
             >
-                <div className="item-view-control-content">
-                    <span className="item-view-control-title">
+                <div className="item-delete-control-content">
+                    <span className="item-delete-control-title">
                         Delete password
                     </span>
 
-                    <span className="item-view-control-description">
+                    <span className="item-delete-control-description">
                         Permanently remove this password from
                         your vault.
                     </span>
                 </div>
 
                 <span
-                    className={`item-view-control-arrow ${
+                    className={`item-delete-control-arrow ${
                         deleteState !== DeleteState.Closed
                             ? "open"
                             : ""
@@ -93,12 +93,12 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
                 </span>
             </button>
 
-            {/* DELETE CONFIRMATION -- user has to click continue */}
+            {/* Delete confirmation */}
 
             {deleteState === DeleteState.Confirmation && (
-                <div className="item-view-control-panel item-view-control-panel-danger">
-                    <div className="delete-item-confirmation">
-                        <div className="delete-item-confirmation-content">
+                <div className="item-delete-control-panel">
+                    <div className="item-delete-confirmation">
+                        <div className="item-delete-confirmation-content">
                             <h4>Delete this password?</h4>
 
                             <p>
@@ -108,10 +108,10 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
                             </p>
                         </div>
 
-                        <div className="delete-item-confirmation-actions">
+                        <div className="item-delete-confirmation-actions">
                             <button
                                 type="button"
-                                className="btn-secondary"
+                                className="item-delete-button-secondary"
                                 onClick={cancelItemDeletionProcess}
                             >
                                 Cancel
@@ -119,7 +119,7 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
 
                             <button
                                 type="button"
-                                className="btn-danger"
+                                className="item-delete-button-danger"
                                 onClick={confirmItemDeletionWithMasterKey}
                             >
                                 Continue
@@ -129,11 +129,11 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
                 </div>
             )}
 
-            {/* DELETE MASTER KEY -- user has to enter their master key */}
+            {/* Delete master key */}
 
             {deleteState === DeleteState.MasterKey && (
-                <div className="item-view-control-panel item-view-control-panel-danger">
-                    <div className="master-key-prompt-header">
+                <div className="item-delete-control-panel">
+                    <div className="item-delete-master-key-header">
                         <span>Enter Master Key</span>
 
                         <p>
@@ -142,7 +142,7 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
                         </p>
                     </div>
 
-                    <div className="master-key-prompt-row">
+                    <div className="item-delete-master-key-row">
                         <input
                             type="password"
                             placeholder="Master Key"
@@ -153,7 +153,7 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
                                 );
                                 setDeleteMasterKeyInputError(null);
                             }}
-                            className="form-input"
+                            className="item-delete-master-key-input"
                             autoFocus
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") {
@@ -168,7 +168,7 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
 
                         <button
                             type="button"
-                            className="btn-secondary"
+                            className="item-delete-button-secondary"
                             onClick={cancelItemDeletionProcess}
                         >
                             Cancel
@@ -176,7 +176,7 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
 
                         <button
                             type="button"
-                            className="btn-danger"
+                            className="item-delete-button-danger"
                             onClick={deleteItem}
                             disabled={
                                 deleteMasterKeyInput.length === 0
@@ -187,7 +187,7 @@ function ItemDeleteControlsView({ item, onRemove }: ItemDeleteControlsViewProps)
                     </div>
 
                     {deleteMasterKeyInputError && (
-                        <span className="form-helper form-helper-error">
+                        <span className="item-delete-master-key-error">
                             {deleteMasterKeyInputError}
                         </span>
                     )}
