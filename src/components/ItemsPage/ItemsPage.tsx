@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Group, Panel, Separator } from "react-resizable-panels";
-import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Search, Plus } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import { ItemListing } from "./ItemListing/ItemListing";
 import { NewItemView } from "./NewItemView/NewItemView";
 import { EncryptedVault } from "../../types/encryptedVault";
@@ -9,8 +8,8 @@ import { EncryptedVaultItem } from "../../types/encryptedVaultItem";
 import { invoke } from "@tauri-apps/api/core";
 import { VaultItem } from "../../types/vaultItem";
 import { ItemView } from "./ItemView/ItemView";
-import "./ItemsPage.css";
 import { VaultItemCategory } from "../../enums/vaultItemCategory";
+import "./ItemsPage.css";
 
 enum ActiveActionItemView {
     NewItemView,
@@ -18,8 +17,6 @@ enum ActiveActionItemView {
 }
 
 function ItemsPage() {
-    const navigate = useNavigate();
-
     const [vaultItems, setVaultItems] = useState<EncryptedVaultItem[]>([]);
     const [activeActionItem, setActiveActionItem] = useState<EncryptedVaultItem | null>(null);
     const [activeActionItemView, setActiveActionItemView] = useState<ActiveActionItemView>(ActiveActionItemView.NewItemView);
