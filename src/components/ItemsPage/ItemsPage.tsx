@@ -152,13 +152,6 @@ function ItemsPage() {
             <div className="all-items-page">
                 <div className="all-items-header-container">
                     <div className="header-left">
-                        <button className="header-nav-btn" onClick={() => navigate(-1)}>
-                            <ChevronLeft size={18} />
-                        </button>
-                        <button className="header-nav-btn" onClick={() => navigate(1)}>
-                            <ChevronRight size={18} />
-                        </button>
-
                         <div className="header-search">
                             <Search size={15} className="header-search-icon" />
                             <input
@@ -181,7 +174,7 @@ function ItemsPage() {
                     <Panel defaultSize={35} minSize={20}>
                         <div className="all-items-page-panel">
                             <div className="item-listings-header">
-                                <h2>Passwords</h2>
+                                <h2 className="item-listings-title">Items</h2>
 
                                 <select
                                     className="item-category-filter"

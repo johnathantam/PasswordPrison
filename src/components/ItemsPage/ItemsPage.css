@@ -27,24 +27,6 @@
     min-width: 0;
 }
 
-.header-nav-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: none;
-    border-radius: 6px;
-    cursor: pointer;
-    color: hsl(227, 94%, 51%);
-    flex-shrink: 0;
-}
-
-.header-nav-btn:hover {
-    background-color: hsl(227, 100%, 90%);
-}
-
 .header-search {
     display: flex;
     align-items: center;
@@ -128,8 +110,11 @@
     margin-bottom: 12px;
 }
 
-.item-listings-header h2 {
+.item-listings-title {
     margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: hsl(227, 94%, 51%);
 }
 
 /* Category Filter */
