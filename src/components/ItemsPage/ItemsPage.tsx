@@ -10,6 +10,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { VaultItem } from "../../types/vaultItem";
 import { ItemView } from "./ItemView/ItemView";
 import "./ItemsPage.css";
+import { VaultItemCategory } from "../../enums/vaultItemCategory";
 
 enum ActiveActionItemView {
     NewItemView,
@@ -24,17 +25,21 @@ function ItemsPage() {
     const [activeActionItemView, setActiveActionItemView] = useState<ActiveActionItemView>(ActiveActionItemView.NewItemView);
 
     const [searchItemsQuery, setSearchItemsQuery] = useState("");    
+    const [selectedCategory, setSelectedCategory] = useState<VaultItemCategory | "all">("all");
     const searchedItems: EncryptedVaultItem[] = vaultItems.filter((item) => {
         const query = searchItemsQuery.trim().toLowerCase();
-        if (!query) {
-            return true;
-        }
 
-        return (
+        const matchesSearch =
+            !query ||
             item.name.toLowerCase().includes(query) ||
             item.username.toLowerCase().includes(query) ||
-            item.urls.some((url) => url.toLowerCase().includes(query))
-        );
+            item.urls.some((url) => url.toLowerCase().includes(query));
+
+        const matchesCategory =
+            selectedCategory === "all" ||
+            item.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
     });
 
     const switchActiveActionItemView = (newActiveActionItemView: ActiveActionItemView) => {
@@ -175,7 +180,27 @@ function ItemsPage() {
                 <Group orientation="horizontal">
                     <Panel defaultSize={35} minSize={20}>
                         <div className="all-items-page-panel">
-                            <h2>Passwords</h2>
+                            <div className="item-listings-header">
+                                <h2>Passwords</h2>
+
+                                <select
+                                    className="item-category-filter"
+                                    value={selectedCategory}
+                                    onChange={(e) =>
+                                        setSelectedCategory(
+                                            e.target.value as VaultItemCategory | "all"
+                                        )
+                                    }
+                                >
+                                    <option value="all">All categories</option>
+
+                                    {Object.values(VaultItemCategory).map((category) => (
+                                        <option key={category} value={category}>
+                                            {category.charAt(0).toUpperCase() + category.slice(1)}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
 
                             <div className="item-listings">
                                 {searchedItems.map((item) => (

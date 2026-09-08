@@ -40,6 +40,7 @@
     color: hsl(227, 94%, 51%);
     flex-shrink: 0;
 }
+
 .header-nav-btn:hover {
     background-color: hsl(227, 100%, 90%);
 }
@@ -68,6 +69,7 @@
     color: hsl(227, 94%, 51%);
     width: 100%;
 }
+
 .header-search-input::placeholder {
     color: hsl(227, 60%, 65%);
 }
@@ -86,11 +88,12 @@
     cursor: pointer;
     flex-shrink: 0;
 }
+
 .header-new-item-btn:hover {
     background-color: hsl(227, 94%, 42%);
 }
 
-/* View Container */ 
+/* View Container */
 
 .all-items-view-container {
     flex: 1;
@@ -113,4 +116,40 @@
 
 .all-items-page-resize-handle:hover {
     background: hsl(227, 94%, 51%);
+}
+
+/* Item Listings Header */
+
+.item-listings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.item-listings-header h2 {
+    margin: 0;
+}
+
+/* Category Filter */
+
+.item-category-filter {
+    height: 30px;
+    padding: 0 28px 0 9px;
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    background-color: white;
+    color: #555;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+}
+
+.item-category-filter:hover {
+    border-color: hsl(227, 100%, 78%);
+}
+
+.item-category-filter:focus {
+    border-color: hsl(227, 94%, 51%);
 }

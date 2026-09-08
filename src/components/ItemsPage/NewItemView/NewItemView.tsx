@@ -85,12 +85,12 @@ function NewItemView({ onCancel, onConfirm }: NewItemViewProps) {
                         onChange={(e) => setCategory(e.target.value as VaultItemCategory)}
                         className="category-select"
                     >
-                        <option className="category-select-option" value={VaultItemCategory.Login}>Login</option>
-                        <option className="category-select-option" value={VaultItemCategory.Finance}>Finance</option>
-                        <option className="category-select-option" value={VaultItemCategory.Social}>Social</option>
-                        <option className="category-select-option" value={VaultItemCategory.Work}>Work</option>
-                        <option className="category-select-option" value={VaultItemCategory.Shopping}>Shopping</option>
-                        <option className="category-select-option" value={VaultItemCategory.Other}>Other</option>
+
+                        {Object.values(VaultItemCategory).map((category) => (
+                            <option key={category} value={category} className="category-select-option">
+                                {category.charAt(0).toUpperCase() + category.slice(1)}
+                            </option>
+                        ))}
                     </select>
                 </div> 
 
