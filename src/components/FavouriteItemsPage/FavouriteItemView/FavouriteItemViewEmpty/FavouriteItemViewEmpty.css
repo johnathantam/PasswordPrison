@@ -1,0 +1,38 @@
+.favourite-item-view-empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.favourite-item-view-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    background-color: hsl(227, 100%, 94%);
+    color: hsl(227, 94%, 51%);
+}
+
+.favourite-item-view-empty h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.favourite-item-view-empty p {
+    max-width: 280px;
+    margin: 7px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #888;
+}

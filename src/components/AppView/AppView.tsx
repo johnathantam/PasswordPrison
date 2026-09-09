@@ -1,6 +1,7 @@
 import "./AppView.css";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Route, Routes } from "react-router-dom";
+import { FavouriteItemsPage } from "../FavouriteItemsPage/FavouriteItemsPage";
 import { ItemsPage } from "../ItemsPage/ItemsPage";
 
 function AppView() {
@@ -11,8 +12,8 @@ function AppView() {
                 <Routes>
                     {/* <Route path="/" element={<HomePage />} /> */}
                     <Route path="/" element={<ItemsPage />} />
-                    {/* <Route path="/favourites" element={<FavouritesPage />} />
-                    <Route path="/security" element={<SecurityPage />} />
+                    <Route path="/favourites" element={<FavouriteItemsPage />} />
+                    {/* <Route path="/security" element={<SecurityPage />} />
                     <Route path="/generator" element={<GeneratorPage />} />
                     <Route path="/trash" element={<TrashPage />} /> */}
                 </Routes>

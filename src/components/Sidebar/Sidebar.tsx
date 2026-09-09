@@ -1,5 +1,6 @@
 import "./Sidebar.css"
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { Key, Home, LockKeyhole, Star, ShieldCheck, Wand2, Trash2, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 function Sidebar() {
@@ -21,18 +22,19 @@ function Sidebar() {
             <div className="sidebar-divider">
                 <span className="sidebar-divider-title">HOME</span>
             </div>
-            <div className="sidebar-item">
+
+            <NavLink to="/" className="sidebar-item">
                 <Home className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Home</span>
-            </div>
+            </NavLink>
             <div className="sidebar-item">
                 <LockKeyhole className="sidebar-item-icon" />
                 <span className="sidebar-item-title">All Passwords</span>
             </div>
-            <div className="sidebar-item">
+            <NavLink to="/favourites" className="sidebar-item">
                 <Star className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Favourites</span>
-            </div>
+            </NavLink>
 
             <div className="sidebar-divider">
                 <span className="sidebar-divider-title">Security</span>
