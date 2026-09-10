@@ -1,14 +1,14 @@
 import { Globe, Star } from "lucide-react";
 import { EncryptedVaultItem } from "../../../types/encryptedVaultItem";
-import "./ItemListing.css";
+import "./TrashedItemListing.css";
 
-interface ItemListingProps {
+interface TrashedItemListingProps {
     item: EncryptedVaultItem;
     onClick: (item: EncryptedVaultItem) => void;
     onFavourite: (itemId: string, favouriteStatus: boolean) => void;
 }
 
-function ItemListing({ item, onClick, onFavourite }: ItemListingProps) {
+function TrashedItemListing({ item, onClick, onFavourite }: TrashedItemListingProps) {
     const handleClick = () => {
         onClick(item);
     };
@@ -20,24 +20,24 @@ function ItemListing({ item, onClick, onFavourite }: ItemListingProps) {
     };
 
     return (
-        <div className="item-listing-container" onClick={handleClick}>
-            <div className="item-listing-icon">
+        <div className="trashed-item-listing-container" onClick={handleClick}>
+            <div className="trashed-item-listing-icon">
                 <Globe size={16} />
             </div>
 
-            <div className="item-listing-content">
-                <span className="item-listing-name">
+            <div className="trashed-item-listing-content">
+                <span className="trashed-item-listing-name">
                     {item.name}
                 </span>
 
-                <span className="item-listing-username">
+                <span className="trashed-item-listing-username">
                     {item.username}
                 </span>
             </div>
 
             <button
                 type="button"
-                className={`item-listing-favourite-button ${
+                className={`trashed-item-listing-favourite-button ${
                     item.is_favourite ? "favourite" : ""
                 }`}
                 onClick={handleFavourite}
@@ -61,4 +61,4 @@ function ItemListing({ item, onClick, onFavourite }: ItemListingProps) {
     );
 }
 
-export { ItemListing };
+export { TrashedItemListing };

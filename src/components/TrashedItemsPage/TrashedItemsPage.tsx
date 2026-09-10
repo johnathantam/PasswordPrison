@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
 import { Group, Panel, Separator } from "react-resizable-panels";
-import { Search, Plus } from "lucide-react";
-import { ItemListing } from "./ItemListing/ItemListing";
-import { NewItemView } from "./NewItemView/NewItemView";
+import { Search } from "lucide-react";
 import { EncryptedVault } from "../../types/encryptedVault";
 import { EncryptedVaultItem } from "../../types/encryptedVaultItem";
 import { invoke } from "@tauri-apps/api/core";
-import { VaultItem } from "../../types/vaultItem";
-import { ItemView } from "./ItemView/ItemView";
+import { TrashedItemListing } from "./TrashedItemListing/TrashedItemListing";
+import { TrashedItemView } from "./TrashedItemView/TrashedItemView";
 import { VaultItemCategory } from "../../enums/vaultItemCategory";
-import "./ItemsPage.css";
+import { VaultItem } from "../../types/vaultItem";
+import "./TrashedItemsPage.css";
 
-enum ActiveActionItemView {
-    NewItemView,
-    ItemListingView
-}
-
-function ItemsPage() {
+function TrashedItemsPage() {
     const [vaultItems, setVaultItems] = useState<EncryptedVaultItem[]>([]);
     const [activeActionItem, setActiveActionItem] = useState<EncryptedVaultItem | null>(null);
-    const [activeActionItemView, setActiveActionItemView] = useState<ActiveActionItemView>(ActiveActionItemView.NewItemView);
 
-    const [searchItemsQuery, setSearchItemsQuery] = useState("");    
+    const [searchItemsQuery, setSearchItemsQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<VaultItemCategory | "all">("all");
     const searchedItems: EncryptedVaultItem[] = vaultItems.filter((item) => {
         const query = searchItemsQuery.trim().toLowerCase();
@@ -39,16 +32,11 @@ function ItemsPage() {
         return matchesSearch && matchesCategory;
     });
 
-    const switchActiveActionItemView = (newActiveActionItemView: ActiveActionItemView) => {
-        setActiveActionItemView(newActiveActionItemView);
-    }
-
     const switchActiveActionItem = (newActiveActionItem: EncryptedVaultItem) => {
         setActiveActionItem(newActiveActionItem);
     }
 
     const selectItemListing = (itemSelected: EncryptedVaultItem) => {
-        switchActiveActionItemView(ActiveActionItemView.ItemListingView);
         switchActiveActionItem(itemSelected);
     }
 
@@ -63,9 +51,8 @@ function ItemsPage() {
             })
             .then((encryptedVault: EncryptedVault) => {
                 // Update elements in ui
-                setVaultItems(encryptedVault.items);
-                setActiveActionItem(encryptedVault.items.find((item) => item.id === itemId) ?? null);
-                setActiveActionItemView(ActiveActionItemView.ItemListingView);
+                setVaultItems(encryptedVault.trashed_items);
+                setActiveActionItem(encryptedVault.trashed_items.find((item) => item.id === itemId) ?? null);
             })
             .catch((error) => {
                 alert(error);
@@ -84,29 +71,8 @@ function ItemsPage() {
             })
             .then((encryptedVault: EncryptedVault) => {
                 // Update elements in ui
-                setVaultItems(encryptedVault.items);
-                setActiveActionItem(encryptedVault.items.find((item) => item.id === itemId) ?? null);
-                setActiveActionItemView(ActiveActionItemView.ItemListingView);
-            })
-            .catch((error) => {
-                alert(error);
-            })
-    }   
-
-    const addItem = (masterKey: string, newItem: VaultItem) => {
-        invoke("add_item_in_vault", {
-            masterKey: masterKey,
-            item: newItem
-        })
-            .then(() => {
-                // Grab new elements
-                return invoke<EncryptedVault>("get_vault_items");
-            })
-            .then((encryptedVault: EncryptedVault) => {
-                // Update elements in ui
-                setVaultItems(encryptedVault.items);
-                setActiveActionItem(encryptedVault.items[encryptedVault.items.length - 1]);
-                setActiveActionItemView(ActiveActionItemView.ItemListingView);
+                setVaultItems(encryptedVault.trashed_items);
+                setActiveActionItem(encryptedVault.trashed_items.find((item) => item.id === itemId) ?? null);
             })
             .catch((error) => {
                 alert(error);
@@ -114,7 +80,7 @@ function ItemsPage() {
     }
 
     const removeItem = (itemId: string) => {
-        invoke("trash_item_in_vault", {
+        invoke("remove_item_in_trash", {
             itemId: itemId
         })
             .then(() => {
@@ -123,9 +89,8 @@ function ItemsPage() {
             })
             .then((encryptedVault: EncryptedVault) => {
                 // Update elements in ui
-                setVaultItems(encryptedVault.items);
+                setVaultItems(encryptedVault.trashed_items);
                 setActiveActionItem(null);
-                setActiveActionItemView(ActiveActionItemView.ItemListingView);
             })
             .catch((error) => {
                 alert(error);
@@ -134,10 +99,10 @@ function ItemsPage() {
 
     // On page load
     useEffect(() => {
-        // Fetch items
+        // Fetch trashed items
         invoke<EncryptedVault>("get_vault_items")
             .then((encryptedVault) => {
-                setVaultItems(encryptedVault.items);
+                setVaultItems(encryptedVault.trashed_items);
             })
             .catch((error) => {
                 console.error("GET VAULT ITEMS FAILED:", error);
@@ -146,35 +111,30 @@ function ItemsPage() {
 
     return (
         <>
-            <div className="all-items-page">
-                <div className="all-items-header-container">
+            <div className="trashed-items-page">
+                <div className="trashed-items-header-container">
                     <div className="header-left">
-                        <div className="header-search">
-                            <Search size={15} className="header-search-icon" />
+                        <div className="trashed-header-search">
+                            <Search size={15} className="trashed-header-search-icon" />
                             <input
                                 type="text"
-                                placeholder="Search passwords..."
-                                className="header-search-input"
+                                placeholder="Search trasheds..."
+                                className="trashed-header-search-input"
                                 value={searchItemsQuery}
                                 onChange={(e) => setSearchItemsQuery(e.target.value)}
                             />
                         </div>
                     </div>
-
-                    <button className="header-new-item-btn" onClick={() => switchActiveActionItemView(ActiveActionItemView.NewItemView)}>
-                        <Plus size={16} />
-                        <span>New Item</span>
-                    </button>
                 </div>
 
                 <Group orientation="horizontal">
                     <Panel defaultSize={35} minSize={20}>
-                        <div className="all-items-page-panel">
-                            <div className="item-listings-header">
-                                <h2 className="item-listings-title">Items</h2>
+                        <div className="trashed-items-page-panel">
+                            <div className="trashed-items-listings-header">
+                                <h2 className="trashed-items-listings-title">Items</h2>
 
                                 <select
-                                    className="item-category-filter"
+                                    className="trashed-items-category-filter"
                                     value={selectedCategory}
                                     onChange={(e) =>
                                         setSelectedCategory(
@@ -192,9 +152,9 @@ function ItemsPage() {
                                 </select>
                             </div>
 
-                            <div className="item-listings">
+                            <div className="trashed-items-listings">
                                 {searchedItems.map((item) => (
-                                    <ItemListing
+                                    <TrashedItemListing
                                         key={item.id}
                                         item={item}
                                         onClick={(item: EncryptedVaultItem) => selectItemListing(item)}
@@ -209,19 +169,12 @@ function ItemsPage() {
 
                     <Panel defaultSize={65} minSize={"210px"}>
                         <div className="all-items-page-panel">
-                            {activeActionItemView === ActiveActionItemView.NewItemView ? (
-                                <NewItemView
-                                    onCancel={() => switchActiveActionItemView(ActiveActionItemView.ItemListingView)} 
-                                    onConfirm={(masterKey: string, newVaultItem: VaultItem) => addItem(masterKey, newVaultItem)}
-                                />
-                            ) : (
-                                <ItemView key={activeActionItem?.id}
-                                    item={activeActionItem} 
-                                    onEdit={editItem}
-                                    onRemove={removeItem}
-                                    onFavourite={favouriteItem}
-                                />
-                            )}
+                            <TrashedItemView key={activeActionItem?.id}
+                                item={activeActionItem}
+                                onEdit={editItem}
+                                onRemove={removeItem}
+                                onFavourite={favouriteItem}
+                            />
                         </div>
                     </Panel>
                 </Group>
@@ -230,4 +183,4 @@ function ItemsPage() {
     )
 }
 
-export { ItemsPage }
+export { TrashedItemsPage }

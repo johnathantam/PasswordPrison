@@ -58,7 +58,19 @@
       "id": "1788760697086430000",
       "title": "work on adding categories and favourites",
       "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1789074763529791000",
+      "title": "Create trash system",
+      "description": "",
       "status": "in_progress"
+    },
+    {
+      "id": "1789078426074646000",
+      "title": "Make edit and favourite backend commands for trashed items\n",
+      "description": "",
+      "status": "pending"
     }
   ]
 }

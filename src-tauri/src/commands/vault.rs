@@ -1,13 +1,13 @@
 use tauri::AppHandle;
 use uuid::Uuid;
 
-use crate::{crypto::{encrypt::encrypt_data, decrypt::decrypt_data, key_derivation::derive_key, nonce::generate_nonce, salt::generate_salt}, models::{encrypted_vault::EncrypyedVault, encrypted_vault_item::EncryptedVaultItem, vault_item::VaultItem}, storage::vault_file::{get_vault_data_file_items, write_vault_data_file_items}};
+use crate::{crypto::{encrypt::encrypt_data, decrypt::decrypt_data, key_derivation::derive_key, nonce::generate_nonce, salt::generate_salt}, models::{encrypted_vault::EncryptedVault, encrypted_vault_item::EncryptedVaultItem, vault_item::VaultItem}, storage::vault_file::{get_vault_data_file_items, write_vault_data_file_items}};
 
 // use crate::models::vault_item::VaultItem;
 // use crate::storage::vault_directory::get_vault_data_directory;
 
 #[tauri::command]
-pub fn get_vault_items(app: AppHandle) -> Result<EncrypyedVault, String> {
+pub fn get_vault_items(app: AppHandle) -> Result<EncryptedVault, String> {
     let vault = get_vault_data_file_items(&app)?;
     Ok(vault)
 }
@@ -46,14 +46,34 @@ pub fn add_item_in_vault(app: AppHandle, master_key: String, item: VaultItem) ->
 }
 
 #[tauri::command]
-pub fn remove_item_in_vault(app: AppHandle, item_id: String) -> Result<(), String> {
+pub fn trash_item_in_vault(app: AppHandle, item_id: String) -> Result<(), String> {
     // Grab vault
     let mut vault = get_vault_data_file_items(&app)?;
     // Remove selected item id
     for i in 0..vault.items.len() {
         let vault_item = &vault.items[i];
         if vault_item.id == item_id {
-            vault.items.remove(i);
+            let trashed_item = vault.items.remove(i);
+            vault.trashed_items.push(trashed_item);
+            break;
+        }
+    }
+
+    // Update the vault
+    _ = write_vault_data_file_items(&app, vault);
+
+    Ok(())
+}
+
+#[tauri::command]
+pub fn remove_item_in_trash(app: AppHandle, item_id: String) -> Result<(), String> {
+    // Grab vault
+    let mut vault = get_vault_data_file_items(&app)?;
+    // Remove selected item id
+    for i in 0..vault.trashed_items.len() {
+        let trashed_item = &vault.trashed_items[i];
+        if trashed_item.id == item_id {
+            vault.trashed_items.remove(i);
             break;
         }
     }
@@ -70,6 +90,7 @@ pub fn edit_item_in_vault(app: AppHandle, item_id: String, master_key: String, e
     let item = vault
         .items
         .iter_mut()
+        .chain(vault.trashed_items.iter_mut())
         .find(|item| item.id == item_id)
         .ok_or_else(|| "Vault item not found".to_string())?;
 
@@ -87,6 +108,7 @@ pub fn edit_item_in_vault(app: AppHandle, item_id: String, master_key: String, e
 
     // Edit item
     item.name = edited_item.name;
+    item.category = edited_item.category;
     item.username = edited_item.username;
     item.password = encrypted_password;
     item.urls = edited_item.urls;
@@ -106,6 +128,7 @@ pub fn favourite_item_in_vault(app: AppHandle, item_id: String, new_favourite_st
     let item = vault
         .items
         .iter_mut()
+        .chain(vault.trashed_items.iter_mut())
         .find(|item| item.id == item_id)
         .ok_or_else(|| "Vault item not found".to_string())?;
 
@@ -127,6 +150,7 @@ pub fn decrypt_vault_item_password(app: AppHandle, item_id: String, master_key: 
     let item = vault
         .items
         .iter()
+        .chain(vault.trashed_items.iter())
         .find(|item| item.id == item_id)
         .ok_or_else(|| "Vault item not found".to_string())?;
 
@@ -148,6 +172,7 @@ pub fn verify_vault_item_master_key(app: AppHandle, item_id: String, master_key:
     let item = vault
         .items
         .iter()
+        .chain(vault.trashed_items.iter())
         .find(|item| item.id == item_id)
         .ok_or_else(|| "Vault item not found".to_string())?;
 

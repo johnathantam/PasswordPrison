@@ -4,6 +4,7 @@
     container-type: inline-size;
     background-color: #ffffff;
     border-right: solid 2px hsl(227, 94%, 51%);
+    overflow-y: scroll;
 }
 
 /* Sidebar header */

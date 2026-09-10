@@ -26,7 +26,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::vault::get_vault_items,
             commands::vault::add_item_in_vault,
-            commands::vault::remove_item_in_vault, 
+            commands::vault::trash_item_in_vault,
+            commands::vault::remove_item_in_trash, 
             commands::vault::edit_item_in_vault,
             commands::vault::favourite_item_in_vault,
 

@@ -1,0 +1,208 @@
+.trashed-item-view-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 16px 0 20px 0;
+    box-sizing: border-box;
+}
+
+.trashed-item-view-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.trashed-item-view-field label {
+    font-size: 11px;
+    font-weight: 600;
+    color: hsl(227, 60%, 45%);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* Values */
+
+.trashed-item-view-value {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 10px;
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    background-color: hsl(227, 100%, 98%);
+    font-size: 14px;
+    color: #1a1a2e;
+    box-sizing: border-box;
+}
+
+.trashed-item-view-value-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Input / value rows */
+
+.trashed-item-view-input-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+
+.trashed-item-view-input-row .trashed-item-view-value {
+    min-width: 0;
+}
+
+/* Icon buttons */
+
+.trashed-item-view-input-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    background: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: hsl(227, 94%, 51%);
+    flex-shrink: 0;
+}
+
+.trashed-item-view-input-icon-btn:hover:not(:disabled) {
+    background-color: hsl(227, 100%, 92%);
+}
+
+.trashed-item-view-input-icon-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Website URLs */
+
+.trashed-item-view-url-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.trashed-item-view-url-icon {
+    color: hsl(227, 60%, 55%);
+    flex-shrink: 0;
+}
+
+/* Notes */
+
+.trashed-item-view-notes {
+    padding: 10px;
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    background-color: hsl(227, 100%, 98%);
+    font-size: 14px;
+    color: #1a1a2e;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Master key prompt */
+
+.trashed-master-key-prompt {
+    margin-top: 8px;
+    padding: 10px;
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    background-color: hsl(227, 100%, 98%);
+}
+
+.trashed-master-key-prompt-header {
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: hsl(227, 60%, 45%);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.trashed-master-key-prompt-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.trashed-master-key-prompt-row .trashed-form-input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Form input */
+
+.trashed-form-input {
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #1a1a2e;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: inherit;
+    background-color: white;
+}
+
+.trashed-form-input:focus {
+    border-color: hsl(227, 94%, 51%);
+    box-shadow: 0 0 0 3px hsl(227, 100%, 94%);
+}
+
+/* Helper text */
+
+.trashed-form-helper {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #0f6af1;
+}
+
+.trashed-form-helper-error {
+    display: block;
+    margin-top: 6px;
+    color: #d33;
+}
+
+/* Buttons */
+
+.trashed-btn-secondary,
+.trashed-btn-primary {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+}
+
+.trashed-btn-secondary {
+    background: none;
+    color: hsl(227, 60%, 45%);
+}
+
+.trashed-btn-secondary:hover:not(:disabled) {
+    background-color: hsl(227, 100%, 94%);
+}
+
+.trashed-btn-primary {
+    background-color: hsl(227, 94%, 51%);
+    color: white;
+}
+
+.trashed-btn-primary:hover:not(:disabled) {
+    background-color: hsl(227, 94%, 42%);
+}
+
+.trashed-btn-primary:disabled,
+.trashed-btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

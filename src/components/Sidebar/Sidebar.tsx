@@ -23,15 +23,15 @@ function Sidebar() {
                 <span className="sidebar-divider-title">HOME</span>
             </div>
 
-            <NavLink to="/" className="sidebar-item">
+            <div className="sidebar-item">
                 <Home className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Home</span>
-            </NavLink>
-            <div className="sidebar-item">
+            </div>
+            <NavLink to="/allItems" className="sidebar-item">
                 <LockKeyhole className="sidebar-item-icon" />
                 <span className="sidebar-item-title">All Passwords</span>
-            </div>
-            <NavLink to="/favourites" className="sidebar-item">
+            </NavLink>
+            <NavLink to="/favouriteItems" className="sidebar-item">
                 <Star className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Favourites</span>
             </NavLink>
@@ -51,10 +51,10 @@ function Sidebar() {
             <div className="sidebar-divider">
                 <span className="sidebar-divider-title">Trash</span>
             </div>
-            <div className="sidebar-item">
+            <NavLink to="/trashedItems" className="sidebar-item">
                 <Trash2 className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Trash</span>
-            </div>
+            </NavLink>
         </div>
     )
 }

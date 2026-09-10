@@ -1,6 +1,7 @@
 import "./AppView.css";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Route, Routes } from "react-router-dom";
+import { TrashedItemsPage } from "../TrashedItemsPage/TrashedItemsPage";
 import { FavouriteItemsPage } from "../FavouriteItemsPage/FavouriteItemsPage";
 import { ItemsPage } from "../ItemsPage/ItemsPage";
 
@@ -12,10 +13,11 @@ function AppView() {
                 <Routes>
                     {/* <Route path="/" element={<HomePage />} /> */}
                     <Route path="/" element={<ItemsPage />} />
-                    <Route path="/favourites" element={<FavouriteItemsPage />} />
-                    {/* <Route path="/security" element={<SecurityPage />} />
-                    <Route path="/generator" element={<GeneratorPage />} />
-                    <Route path="/trash" element={<TrashPage />} /> */}
+                    <Route path="/allItems" element={<ItemsPage />} />
+                    <Route path="/favouriteItems" element={<FavouriteItemsPage />} />
+                    {/* <Route path="/security" element={<SecurityPage />} /> */}
+                    {/* <Route path="/generator" element={<GeneratorPage />} /> */}
+                    <Route path="/trashedItems" element={<TrashedItemsPage />} />
                 </Routes>
             </div>
         </div>

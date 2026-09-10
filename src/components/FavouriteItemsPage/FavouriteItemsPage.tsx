@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Group, Panel, Separator } from "react-resizable-panels";
 import { Search, Plus } from "lucide-react";
-import { ItemListing } from "./FavouriteItemListing/ItemListing";
+import { FavouriteItemListing } from "./FavouriteItemListing/FavouriteItemListing";
 import { NewFavouriteItemView } from "./NewFavouriteItemView/NewFavouriteItemView";
 import { EncryptedVault } from "../../types/encryptedVault";
 import { EncryptedVaultItem } from "../../types/encryptedVaultItem";
@@ -123,7 +123,7 @@ function FavouriteItemsPage() {
     }
 
     const removeItem = (itemId: string) => {
-        invoke("remove_item_in_vault", {
+        invoke("trash_item_in_vault", {
             itemId: itemId
         })
             .then(() => {
@@ -206,7 +206,7 @@ function FavouriteItemsPage() {
 
                             <div className="favourite-items-listings">
                                 {searchedItems.map((item) => (
-                                    <ItemListing
+                                    <FavouriteItemListing
                                         key={item.id}
                                         item={item}
                                         onClick={(item: EncryptedVaultItem) => selectItemListing(item)}
