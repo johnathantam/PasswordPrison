@@ -23,10 +23,10 @@ function Sidebar() {
                 <span className="sidebar-divider-title">HOME</span>
             </div>
 
-            <div className="sidebar-item">
+            <NavLink to="/" className="sidebar-item">
                 <Home className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Home</span>
-            </div>
+            </NavLink>
             <NavLink to="/allItems" className="sidebar-item">
                 <LockKeyhole className="sidebar-item-icon" />
                 <span className="sidebar-item-title">All Passwords</span>

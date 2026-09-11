@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { TrashedItemsPage } from "../TrashedItemsPage/TrashedItemsPage";
 import { FavouriteItemsPage } from "../FavouriteItemsPage/FavouriteItemsPage";
 import { ItemsPage } from "../ItemsPage/ItemsPage";
+import { HomePage } from "../HomePage/HomePage";
 
 function AppView() {
     return (
@@ -11,7 +12,7 @@ function AppView() {
             <Sidebar />
             <div className="app-content">
                 <Routes>
-                    {/* <Route path="/" element={<HomePage />} /> */}
+                    <Route path="/" element={<HomePage />} />
                     <Route path="/" element={<ItemsPage />} />
                     <Route path="/allItems" element={<ItemsPage />} />
                     <Route path="/favouriteItems" element={<FavouriteItemsPage />} />
