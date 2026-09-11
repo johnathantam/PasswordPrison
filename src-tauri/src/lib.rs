@@ -24,6 +24,10 @@ pub fn run() {
 
         // Register commands
         .invoke_handler(tauri::generate_handler![
+            commands::credentials::generate_username,
+            commands::credentials::generate_password,
+            commands::credentials::generate_pin,
+
             commands::vault::get_vault_items,
             commands::vault::add_item_in_vault,
             commands::vault::trash_item_in_vault,

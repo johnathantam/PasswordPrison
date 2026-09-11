@@ -39,14 +39,14 @@ function Sidebar() {
             <div className="sidebar-divider">
                 <span className="sidebar-divider-title">Security</span>
             </div>
-            <div className="sidebar-item">
+            <NavLink to="/security" className="sidebar-item">
                 <ShieldCheck className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Security</span>
-            </div>
-            <div className="sidebar-item">
+            </NavLink>
+            <NavLink to="/generator" className="sidebar-item">
                 <Wand2 className="sidebar-item-icon" />
                 <span className="sidebar-item-title">Password Generator</span>
-            </div>
+            </NavLink>
 
             <div className="sidebar-divider">
                 <span className="sidebar-divider-title">Trash</span>

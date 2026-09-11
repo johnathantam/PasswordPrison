@@ -7,7 +7,7 @@ pub fn generate_salt() -> [u8; 16] {
     let mut salt = [0u8; 16];
 
     // Fill in with random 16 bytes
-    rand::thread_rng().fill_bytes(&mut salt);
+    rand::rng().fill_bytes(&mut salt);
 
     salt
 }
