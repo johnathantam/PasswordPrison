@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "passwordprison",
+  "productName": "Password Prison",
   "version": "0.1.0",
   "identifier": "com.johnathantam.passwordprison",
   "build": {
