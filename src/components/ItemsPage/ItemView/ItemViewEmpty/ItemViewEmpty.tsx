@@ -8,10 +8,10 @@ function ItemViewEmpty() {
                 <LockKeyhole size={30} />
             </div>
 
-            <h2>No password selected</h2>
+            <h2>No item selected</h2>
 
             <p>
-                Select a password from the list to view its details.
+                Select a item from the list to view its details.
             </p>
         </div>
     )

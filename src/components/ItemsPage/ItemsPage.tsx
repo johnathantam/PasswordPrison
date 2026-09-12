@@ -10,6 +10,7 @@ import { VaultItem } from "../../types/vaultItem";
 import { ItemView } from "./ItemView/ItemView";
 import { VaultItemCategory } from "../../enums/vaultItemCategory";
 import "./ItemsPage.css";
+import { ItemListingEmpty } from "./ItemListingEmpty/ItemListingEmpty";
 
 enum ActiveActionItemView {
     NewItemView,
@@ -193,21 +194,32 @@ function ItemsPage() {
                             </div>
 
                             <div className="item-listings">
-                                {searchedItems.map((item) => (
-                                    <ItemListing
-                                        key={item.id}
-                                        item={item}
-                                        onClick={(item: EncryptedVaultItem) => selectItemListing(item)}
-                                        onFavourite={(itemId: string, favouriteStatus: boolean) => favouriteItem(itemId, favouriteStatus)}
-                                    />
-                                ))}
+                                {searchedItems.length === 0 ? (
+                                   <ItemListingEmpty /> 
+                                ) : (
+                                    searchedItems.map((item) => (
+                                        <ItemListing
+                                            key={item.id}
+                                            item={item}
+                                            onClick={(item: EncryptedVaultItem) =>
+                                                selectItemListing(item)
+                                            }
+                                            onFavourite={(
+                                                itemId: string,
+                                                favouriteStatus: boolean
+                                            ) =>
+                                                favouriteItem(itemId, favouriteStatus)
+                                            }
+                                        />
+                                    ))
+                                )}
                             </div>
                         </div>
                     </Panel>
 
                     <Separator className="all-items-page-resize-handle" />
 
-                    <Panel defaultSize={65} minSize={"210px"}>
+                    <Panel defaultSize={35} minSize={20}>
                         <div className="all-items-page-panel">
                             {activeActionItemView === ActiveActionItemView.NewItemView ? (
                                 <NewItemView

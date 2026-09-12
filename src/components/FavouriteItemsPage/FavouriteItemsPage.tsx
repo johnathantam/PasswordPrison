@@ -3,6 +3,7 @@ import { Group, Panel, Separator } from "react-resizable-panels";
 import { Search, Plus } from "lucide-react";
 import { FavouriteItemListing } from "./FavouriteItemListing/FavouriteItemListing";
 import { NewFavouriteItemView } from "./NewFavouriteItemView/NewFavouriteItemView";
+import { FavouriteItemListingEmpty } from "./FavouriteItemListingEmpty/FavouriteItemListingEmpty";
 import { EncryptedVault } from "../../types/encryptedVault";
 import { EncryptedVaultItem } from "../../types/encryptedVaultItem";
 import { invoke } from "@tauri-apps/api/core";
@@ -205,21 +206,25 @@ function FavouriteItemsPage() {
                             </div>
 
                             <div className="favourite-items-listings">
-                                {searchedItems.map((item) => (
-                                    <FavouriteItemListing
-                                        key={item.id}
-                                        item={item}
-                                        onClick={(item: EncryptedVaultItem) => selectItemListing(item)}
-                                        onFavourite={(itemId: string, favouriteStatus: boolean) => favouriteItem(itemId, favouriteStatus)}
-                                    />
-                                ))}
+                                {searchedItems.length === 0 ? (
+                                    <FavouriteItemListingEmpty />
+                                ) : (
+                                    searchedItems.map((item) => (
+                                        <FavouriteItemListing
+                                            key={item.id}
+                                            item={item}
+                                            onClick={(item: EncryptedVaultItem) => selectItemListing(item) }
+                                            onFavourite={( itemId: string, favouriteStatus: boolean ) => favouriteItem(itemId, favouriteStatus) }
+                                        />
+                                    ))
+                                )}
                             </div>
                         </div>
                     </Panel>
 
                     <Separator className="all-items-page-resize-handle" />
 
-                    <Panel defaultSize={65} minSize={"210px"}>
+                    <Panel defaultSize={35} minSize={20}>
                         <div className="all-items-page-panel">
                             {activeActionItemView === ActiveActionItemView.NewItemView ? (
                                 <NewFavouriteItemView

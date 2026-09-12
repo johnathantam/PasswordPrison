@@ -9,6 +9,7 @@ import { TrashedItemView } from "./TrashedItemView/TrashedItemView";
 import { VaultItemCategory } from "../../enums/vaultItemCategory";
 import { VaultItem } from "../../types/vaultItem";
 import "./TrashedItemsPage.css";
+import { TrashedItemListingEmpty } from "./TrashedItemListingEmpty/TrashedItemListingEmpty";
 
 function TrashedItemsPage() {
     const [vaultItems, setVaultItems] = useState<EncryptedVaultItem[]>([]);
@@ -131,7 +132,7 @@ function TrashedItemsPage() {
                     <Panel defaultSize={35} minSize={20}>
                         <div className="trashed-items-page-panel">
                             <div className="trashed-items-listings-header">
-                                <h2 className="trashed-items-listings-title">Items</h2>
+                                <h2 className="trashed-items-listings-title">Trash Items</h2>
 
                                 <select
                                     className="trashed-items-category-filter"
@@ -153,21 +154,25 @@ function TrashedItemsPage() {
                             </div>
 
                             <div className="trashed-items-listings">
-                                {searchedItems.map((item) => (
-                                    <TrashedItemListing
-                                        key={item.id}
-                                        item={item}
-                                        onClick={(item: EncryptedVaultItem) => selectItemListing(item)}
-                                        onFavourite={(itemId: string, favouriteStatus: boolean) => favouriteItem(itemId, favouriteStatus)}
-                                    />
-                                ))}
+                                {searchedItems.length === 0 ? (
+                                    <TrashedItemListingEmpty />
+                                ) : (
+                                    searchedItems.map((item) => (
+                                        <TrashedItemListing
+                                            key={item.id}
+                                            item={item}
+                                            onClick={(item: EncryptedVaultItem) => selectItemListing(item) }
+                                            onFavourite={( itemId: string, favouriteStatus: boolean ) => favouriteItem(itemId, favouriteStatus) }
+                                        />
+                                    ))
+                                )}
                             </div>
                         </div>
                     </Panel>
 
                     <Separator className="all-items-page-resize-handle" />
 
-                    <Panel defaultSize={65} minSize={"210px"}>
+                    <Panel defaultSize={35} minSize={20}>
                         <div className="all-items-page-panel">
                             <TrashedItemView key={activeActionItem?.id}
                                 item={activeActionItem}
