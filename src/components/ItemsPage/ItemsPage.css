@@ -1,0 +1,140 @@
+.all-items-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+
+.all-items-header-container {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border-bottom: 2px solid hsl(227, 94%, 51%);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.header-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: hsl(227, 100%, 96%);
+    border-radius: 6px;
+    padding: 5px 10px;
+    max-width: 280px;
+    width: 100%;
+}
+
+.header-search-icon {
+    color: hsl(227, 94%, 51%);
+    flex-shrink: 0;
+}
+
+.header-search-input {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 13px;
+    color: hsl(227, 94%, 51%);
+    width: 100%;
+}
+
+.header-search-input::placeholder {
+    color: hsl(227, 60%, 65%);
+}
+
+.header-new-item-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: hsl(227, 94%, 51%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.header-new-item-btn:hover {
+    background-color: hsl(227, 94%, 42%);
+}
+
+/* View Container */
+
+.all-items-view-container {
+    flex: 1;
+    width: 100%;
+}
+
+.all-items-page-panel {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.all-items-page-resize-handle {
+    width: 2px;
+    background: hsl(227, 100%, 75%);
+    cursor: col-resize;
+    transition: background 0.2s ease;
+}
+
+.all-items-page-resize-handle:hover {
+    background: hsl(227, 94%, 51%);
+}
+
+/* Item Listings Header */
+
+.item-listings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.item-listings-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: hsl(227, 94%, 51%);
+}
+
+/* Category Filter */
+
+.item-category-filter {
+    height: 30px;
+    padding: 0 28px 0 9px;
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    background-color: white;
+    color: #555;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+}
+
+.item-category-filter:hover {
+    border-color: hsl(227, 100%, 78%);
+}
+
+.item-category-filter:focus {
+    border-color: hsl(227, 94%, 51%);
+}

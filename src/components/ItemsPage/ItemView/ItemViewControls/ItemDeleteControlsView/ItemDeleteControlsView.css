@@ -1,0 +1,226 @@
+/* Delete controls section */
+
+.item-delete-controls-section {
+    border-bottom: 1px solid hsl(227, 100%, 92%);
+}
+
+/* Delete control trigger */
+
+.item-delete-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 13px 14px;
+    border: none;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+}
+
+.item-delete-control:hover {
+    background-color: #fff8f7;
+}
+
+.item-delete-control-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.item-delete-control-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #c0392b;
+}
+
+.item-delete-control-description {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #888;
+}
+
+.item-delete-control-arrow {
+    flex-shrink: 0;
+    color: #c0392b;
+    font-size: 16px;
+    transition: transform 0.15s ease;
+}
+
+.item-delete-control-arrow.open {
+    transform: rotate(90deg);
+}
+
+/* Expanded panels */
+
+.item-delete-control-panel {
+    padding: 16px 14px 18px;
+    border-top: 1px solid #f1d5d2;
+    background-color: #fffafa;
+}
+
+/* Delete confirmation */
+
+.item-delete-confirmation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.item-delete-confirmation-content {
+    min-width: 0;
+}
+
+.item-delete-confirmation-content h4 {
+    margin: 0 0 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #c0392b;
+}
+
+.item-delete-confirmation-content p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #777;
+}
+
+.item-delete-confirmation-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+}
+
+/* Master key prompt */
+
+.item-delete-master-key-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.item-delete-master-key-header > span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.item-delete-master-key-header p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #777;
+}
+
+.item-delete-master-key-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Master key input */
+
+.item-delete-master-key-input {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d8d8e2;
+    border-radius: 6px;
+    background: white;
+    color: #1a1a2e;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.item-delete-master-key-input:focus {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 2px #f9ddda;
+}
+
+.item-delete-master-key-input::placeholder {
+    color: #aaa;
+}
+
+/* Error message */
+
+.item-delete-master-key-error {
+    display: block;
+    margin-top: 7px;
+    font-size: 12px;
+    color: #c0392b;
+}
+
+/* Buttons */
+
+.item-delete-button-secondary,
+.item-delete-button-danger {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.item-delete-button-secondary {
+    border: 1px solid #d5d5df;
+    background-color: white;
+    color: #444;
+}
+
+.item-delete-button-secondary:hover:not(:disabled) {
+    background-color: #f5f5f8;
+    border-color: #c5c5d0;
+}
+
+.item-delete-button-danger {
+    border: 1px solid #c0392b;
+    background-color: #c0392b;
+    color: white;
+}
+
+.item-delete-button-danger:hover:not(:disabled) {
+    background-color: #a93226;
+}
+
+.item-delete-button-secondary:disabled,
+.item-delete-button-danger:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+/* Smaller screens */
+
+@media (max-width: 600px) {
+    .item-delete-master-key-row {
+        flex-wrap: wrap;
+    }
+
+    .item-delete-master-key-input {
+        flex-basis: 100%;
+    }
+
+    .item-delete-confirmation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .item-delete-confirmation-actions {
+        justify-content: flex-end;
+    }
+}

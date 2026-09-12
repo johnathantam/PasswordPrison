@@ -1,0 +1,76 @@
+{
+  "todos": [
+    {
+      "id": "1788329389032596000",
+      "title": "Add save password in rust",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788443783144679000",
+      "title": "Add get vault data in rust",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788443790915511000",
+      "title": "Add remove item in rust",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788443886629800000",
+      "title": "Add updated item in rust",
+      "description": "",
+      "status": "pending"
+    },
+    {
+      "id": "1788489033315208000",
+      "title": "Make add password functionality in UI",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788666015153054000",
+      "title": "Fix master key type differences",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788748900731489000",
+      "title": "fix edit decryption verify workflow",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1788760523279954000",
+      "title": "Add link fetch profile for items",
+      "description": "",
+      "status": "pending"
+    },
+    {
+      "id": "1788760674934410000",
+      "title": "Update ui for item controls to match blue theme",
+      "description": "",
+      "status": "pending"
+    },
+    {
+      "id": "1788760697086430000",
+      "title": "work on adding categories and favourites",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1789074763529791000",
+      "title": "Create trash system",
+      "description": "",
+      "status": "completed"
+    },
+    {
+      "id": "1789078426074646000",
+      "title": "Make edit and favourite backend commands for trashed items\n",
+      "description": "",
+      "status": "pending"
+    }
+  ]
+}

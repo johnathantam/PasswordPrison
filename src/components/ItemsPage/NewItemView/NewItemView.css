@@ -1,0 +1,184 @@
+.create-item-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.create-item-header {
+    border-bottom: 2px solid hsl(227, 94%, 51%);
+    padding-bottom: 16px;
+}
+
+.create-item-header-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: hsl(227, 94%, 51%);
+    margin: 0;
+}
+
+.create-item-form {
+    flex: 1;
+    overflow: auto;
+    padding: 16px 0px 16px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.form-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: hsl(227, 60%, 45%);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.form-helper {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #0f6af1;
+}
+
+/* Category select */
+.category-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    padding: 8px 32px 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1a1a2e;
+    background-color: white;
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23375fc9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.category-select:hover {
+    border-color: hsl(227, 94%, 70%);
+}
+
+.category-select:focus {
+    border-color: hsl(227, 94%, 51%);
+    box-shadow: 0 0 0 3px hsl(227, 100%, 94%);
+}
+
+.category-select-option {
+    color: #1a1a2e;
+    background-color: white;
+    padding: 8px;
+}
+
+.form-input, .form-textarea {
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #1a1a2e;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: inherit;
+}
+.form-input:focus, .form-textarea:focus {
+    border-color: hsl(227, 94%, 51%);
+}
+.form-input-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+.form-textarea {
+    resize: vertical;
+}
+
+.item-input-row, .url-input-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.item-input-row .form-input, .url-input-row .form-input {
+    flex: 1;
+}
+
+.url-icon {
+    color: hsl(227, 60%, 55%);
+    flex-shrink: 0;
+}
+
+.input-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: hsl(227, 94%, 51%);
+    flex-shrink: 0;
+}
+.input-icon-btn:hover {
+    background-color: hsl(227, 100%, 92%);
+}
+
+.add-url-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: hsl(227, 94%, 51%);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 0;
+    width: fit-content;
+}
+.add-url-btn:hover {
+    text-decoration: underline;
+}
+
+.create-item-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 16px;
+    border-top: 2px solid hsl(227, 94%, 51%);
+}
+
+.btn-secondary, .btn-primary {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+}
+.btn-secondary {
+    background: none;
+    color: hsl(227, 60%, 45%);
+}
+.btn-secondary:hover {
+    background-color: hsl(227, 100%, 94%);
+}
+.btn-primary {
+    background-color: hsl(227, 94%, 51%);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: hsl(227, 94%, 42%);
+}

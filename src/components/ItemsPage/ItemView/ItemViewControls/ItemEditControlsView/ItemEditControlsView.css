@@ -1,0 +1,187 @@
+/* Edit control section wrapper */
+.item-edit-control-section {
+    border-bottom: 1px solid hsl(227, 100%, 92%);
+}
+
+.item-edit-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 13px 14px;
+    border: none;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+}
+
+.item-edit-control:hover {
+    background-color: hsl(227, 100%, 97%);
+}
+
+.item-edit-control-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.item-edit-control-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.item-edit-control-description {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #888;
+}
+
+.item-edit-control-arrow {
+    flex-shrink: 0;
+    color: hsl(227, 60%, 55%);
+    font-size: 16px;
+    transition: transform 0.15s ease;
+}
+
+.item-edit-control-arrow.open {
+    transform: rotate(90deg);
+}
+
+/* Expanded panel */
+.item-edit-control-panel {
+    padding: 16px 14px 18px;
+    border-top: 1px solid hsl(227, 100%, 92%);
+    background-color: hsl(227, 100%, 98.5%);
+}
+
+/* Master key prompt (edit-specific instance) */
+.item-edit-master-key-prompt-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.item-edit-master-key-prompt-header > span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.item-edit-master-key-prompt-header p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #777;
+}
+
+.item-edit-master-key-prompt-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.item-edit-master-key-prompt-row .form-input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Edit form */
+.item-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.item-edit-form-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-edit-form-header h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.item-edit-form-header p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #777;
+}
+
+.item-edit-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.item-edit-form-fields .item-view-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.item-edit-form-fields .item-view-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+}
+
+.item-edit-form-fields textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.item-edit-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 2px;
+}
+
+/* Category select (if not already globally defined elsewhere) */
+.category-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    padding: 8px 32px 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1a1a2e;
+    background-color: white;
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23375fc9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.category-select:hover {
+    border-color: hsl(227, 94%, 70%);
+}
+
+.category-select:focus {
+    border-color: hsl(227, 94%, 51%);
+    box-shadow: 0 0 0 3px hsl(227, 100%, 94%);
+}
+
+@media (max-width: 600px) {
+    .item-edit-master-key-prompt-row {
+        flex-wrap: wrap;
+    }
+    .item-edit-master-key-prompt-row .form-input {
+        flex-basis: 100%;
+    }
+}

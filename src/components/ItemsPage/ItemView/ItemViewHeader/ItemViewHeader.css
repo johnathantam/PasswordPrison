@@ -1,0 +1,85 @@
+.item-view-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid hsl(227, 94%, 51%);
+}
+
+.item-view-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.item-view-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.item-view-header-content h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.item-view-header-content span {
+    font-size: 12px;
+    color: #888;
+}
+
+/* Favourite button */
+
+.item-view-favourite-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    margin-left: auto;
+
+    width: 34px;
+    height: 34px;
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    background: transparent;
+    color: #999;
+
+    cursor: pointer;
+
+    transition:
+        color 0.15s ease,
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.item-view-favourite-button:hover {
+    color: hsl(227, 60%, 55%);
+    background-color: hsl(227, 100%, 97%);
+    border-color: hsl(227, 100%, 90%);
+}
+
+/* Active favourite */
+
+.item-view-favourite-button.favourite {
+    color: hsl(227, 94%, 51%);
+}
+
+.item-view-favourite-button.favourite:hover {
+    color: hsl(227, 94%, 45%);
+    background-color: hsl(227, 100%, 97%);
+    border-color: hsl(227, 100%, 90%);
+}
+
+.item-view-favourite-button:focus-visible {
+    outline: none;
+    border-color: hsl(227, 94%, 51%);
+    box-shadow: 0 0 0 2px hsl(227, 100%, 94%);
+}

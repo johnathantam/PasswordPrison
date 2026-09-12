@@ -1,0 +1,358 @@
+.trashed-item-edit-control-section {
+    border-bottom: 1px solid hsl(227, 100%, 92%);
+}
+
+/* Main edit control */
+
+.trashed-item-edit-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 13px 14px;
+    border: none;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+}
+
+.trashed-item-edit-control:hover {
+    background-color: hsl(227, 100%, 97%);
+}
+
+.trashed-item-edit-control-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.trashed-item-edit-control-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.trashed-item-edit-control-description {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #888;
+}
+
+.trashed-item-edit-control-arrow {
+    flex-shrink: 0;
+    color: hsl(227, 60%, 55%);
+    font-size: 16px;
+    transition: transform 0.15s ease;
+}
+
+.trashed-item-edit-control-arrow.open {
+    transform: rotate(90deg);
+}
+
+/* Expanded panel */
+
+.trashed-item-edit-control-panel {
+    padding: 16px 14px 18px;
+    border-top: 1px solid hsl(227, 100%, 92%);
+    background-color: hsl(227, 100%, 98.5%);
+}
+
+/* Master key prompt */
+
+.trashed-item-edit-master-key-prompt-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.trashed-item-edit-master-key-prompt-header > span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.trashed-item-edit-master-key-prompt-header p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #777;
+}
+
+.trashed-item-edit-master-key-prompt-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trashed-item-edit-master-key-prompt-row
+    .trashed-item-edit-form-input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Edit form */
+
+.trashed-item-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.trashed-item-edit-form-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.trashed-item-edit-form-header h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.trashed-item-edit-form-header p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #777;
+}
+
+.trashed-item-edit-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Form fields */
+
+.trashed-item-edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.trashed-item-edit-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: hsl(227, 60%, 45%);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* Inputs */
+
+.trashed-item-edit-form-input {
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #1a1a2e;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: inherit;
+    background-color: white;
+}
+
+.trashed-item-edit-form-input:focus {
+    border-color: hsl(227, 94%, 51%);
+    box-shadow: 0 0 0 3px hsl(227, 100%, 94%);
+}
+
+.trashed-item-edit-form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Category select */
+
+.trashed-item-edit-category-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    border: 1px solid hsl(227, 100%, 88%);
+    border-radius: 6px;
+    padding: 8px 32px 8px 10px;
+
+    font-size: 14px;
+    font-family: inherit;
+    color: #1a1a2e;
+
+    background-color: white;
+    box-sizing: border-box;
+    width: 100%;
+
+    cursor: pointer;
+    outline: none;
+
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23375fc9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.trashed-item-edit-category-select:hover {
+    border-color: hsl(227, 94%, 70%);
+}
+
+.trashed-item-edit-category-select:focus {
+    border-color: hsl(227, 94%, 51%);
+    box-shadow: 0 0 0 3px hsl(227, 100%, 94%);
+}
+
+.trashed-item-edit-category-select-option {
+    color: #1a1a2e;
+    background-color: white;
+}
+
+/* URL list */
+
+.trashed-item-edit-url-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.trashed-item-edit-input-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+
+.trashed-item-edit-input-row
+    .trashed-item-edit-form-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.trashed-item-edit-url-icon {
+    color: hsl(227, 60%, 55%);
+    flex-shrink: 0;
+}
+
+/* URL remove button */
+
+.trashed-item-edit-input-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    padding: 0;
+
+    border: none;
+    background: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    color: hsl(0, 65%, 52%);
+
+    flex-shrink: 0;
+}
+
+.trashed-item-edit-input-icon-btn:hover {
+    background-color: hsl(0, 100%, 95%);
+}
+
+/* Add URL */
+
+.trashed-item-edit-add-url-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    width: fit-content;
+    padding: 4px 0;
+
+    border: none;
+    background: none;
+
+    color: hsl(227, 94%, 51%);
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.trashed-item-edit-add-url-btn:hover {
+    text-decoration: underline;
+}
+
+/* Helper text */
+
+.trashed-item-edit-form-helper {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #0f6af1;
+}
+
+.trashed-item-edit-form-helper-error {
+    display: block;
+    margin-top: 6px;
+    color: #d33;
+}
+
+/* Form actions */
+
+.trashed-item-edit-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 2px;
+}
+
+/* Buttons */
+
+.trashed-item-edit-btn-secondary,
+.trashed-item-edit-btn-primary {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+}
+
+.trashed-item-edit-btn-secondary {
+    background: none;
+    color: hsl(227, 60%, 45%);
+}
+
+.trashed-item-edit-btn-secondary:hover:not(:disabled) {
+    background-color: hsl(227, 100%, 94%);
+}
+
+.trashed-item-edit-btn-primary {
+    background-color: hsl(227, 94%, 51%);
+    color: white;
+}
+
+.trashed-item-edit-btn-primary:hover:not(:disabled) {
+    background-color: hsl(227, 94%, 42%);
+}
+
+.trashed-item-edit-btn-primary:disabled,
+.trashed-item-edit-btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .trashed-item-edit-master-key-prompt-row {
+        flex-wrap: wrap;
+    }
+
+    .trashed-item-edit-master-key-prompt-row
+        .trashed-item-edit-form-input {
+        flex-basis: 100%;
+    }
+}
