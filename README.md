@@ -73,7 +73,7 @@ On some systems, macOS may display:
 If you downloaded PasswordPrison from a source you trust, you can remove the macOS quarantine attribute using Terminal:
 
 ```bash
-xattr -d com.apple.quarantine /Applications/PasswordPrison.app
+xattr -d com.apple.quarantine /Applications/Password\ Prison.app
 ```
 
 ### Windows
