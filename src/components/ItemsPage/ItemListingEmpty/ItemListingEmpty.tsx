@@ -1,4 +1,4 @@
-import { Globe, Star } from "lucide-react";
+import { Globe } from "lucide-react";
 import "./ItemListingEmpty.css";
 
 function ItemListingEmpty() {
