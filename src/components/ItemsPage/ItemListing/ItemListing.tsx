@@ -1,4 +1,4 @@
-import { Globe, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { EncryptedVaultItem } from "../../../types/encryptedVaultItem";
 import { ItemFavicon } from "../../ItemFavicon/ItemFavicon";
 import "./ItemListing.css";
