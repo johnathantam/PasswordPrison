@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: hsl(227, 94%, 51%);
 }
 
 .favourite-item-view-header-content {

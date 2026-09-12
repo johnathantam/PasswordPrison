@@ -1,5 +1,6 @@
-import { Globe, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { EncryptedVaultItem } from "../../../types/encryptedVaultItem";
+import { ItemFavicon } from "../../ItemFavicon/ItemFavicon";
 import "./TrashedItemListing.css";
 
 interface TrashedItemListingProps {
@@ -22,7 +23,7 @@ function TrashedItemListing({ item, onClick, onFavourite }: TrashedItemListingPr
     return (
         <div className="trashed-item-listing-container" onClick={handleClick}>
             <div className="trashed-item-listing-icon">
-                <Globe size={16} />
+                <ItemFavicon url={item.urls[0]} size={16} />
             </div>
 
             <div className="trashed-item-listing-content">

@@ -1,4 +1,4 @@
-import { Star, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import "./TrashedItemListingEmpty.css";
 
 function TrashedItemListingEmpty() {
