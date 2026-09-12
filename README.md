@@ -32,84 +32,123 @@ Install the following before developing locally:
 
 On macOS, install Xcode Command Line Tools. Windows and Linux require additional Tauri system dependencies; see the Tauri prerequisites guide for the current list.
 
-## Getting Started
+> **Note:** These prerequisites are only required for development. Users installing a released PasswordPrison application do not need Node.js, Rust, npm, Cargo, or the Tauri CLI installed.
 
-Clone the repository and install the JavaScript dependencies:
+## Installation
 
-```bash
-git clone https://github.com/johnathantam/PasswordPrison.git
-cd PasswordPrison
-npm ci
-```
+Download the latest release for your operating system from the project's [GitHub Releases](https://github.com/johnathantam/PasswordPrison/releases) page.
 
-Start the desktop application in development mode:
+- **macOS:** `.dmg`
+- **Windows:** `.msi` or `.exe`
+- **Linux:** platform-specific packages
 
-```bash
-npm run tauri dev
-```
+### macOS
 
-The frontend can also be run by itself with:
+macOS releases are provided as `.dmg` files.
 
-```bash
-npm run dev
-```
+1. Download the latest `.dmg` file.
+2. Open the `.dmg`.
+3. Drag **PasswordPrison** into the **Applications** folder.
+4. Open the **Applications** folder and launch PasswordPrison.
 
-## Available Commands
+PasswordPrison is currently distributed without Apple Developer ID signing and notarization, so macOS may display a security warning.
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the Vite development server |
-| `npm run build` | Type-check and build the frontend |
-| `npm run preview` | Preview the production frontend build |
-| `npm run tauri dev` | Start the Tauri desktop app in development mode |
-| `npm run tauri build` | Build native installers for the current operating system |
+#### If macOS says the developer cannot be verified
 
-## Project Structure
+1. Try opening PasswordPrison once.
+2. Close the security warning.
+3. Open **System Settings > Privacy & Security**.
+4. Scroll to the **Security** section.
+5. Click **Open Anyway** next to the PasswordPrison message.
+6. Confirm that you want to open the application.
 
-```text
-src/
-	components/       React pages and reusable UI components
-	enums/            Shared frontend enums
-	types/            Shared frontend data types
-src-tauri/
-	commands/         Tauri commands exposed to the frontend
-	crypto/           Encryption, decryption, key derivation, salts, and nonces
-	models/           Rust vault models
-	storage/          Local vault directory and file handling
-```
+You can also Control-click PasswordPrison in the Applications folder, select **Open**, and then confirm the warning.
 
-The frontend communicates with Rust through Tauri commands. Vault file access and cryptographic operations are kept in the Rust backend rather than performed directly in the browser UI.
+#### If macOS says the application is damaged
 
-## Local Vault Storage
+On some systems, macOS may display:
 
-PasswordPrison creates its application data directory through Tauri's `app_data_dir()` and stores the vault in a file named `vault.dat`. The exact directory depends on the operating system.
+> "PasswordPrison is damaged and can't be opened."
 
-Deleting the installed application does not necessarily delete this application data directory. A future uninstall or account-removal flow should explicitly explain whether it also deletes the vault, and should require confirmation before doing so.
-
-## Releases With GitHub Actions
-
-The release workflow in `.github/workflows/release.yml` runs when a version tag beginning with `v` is pushed. It builds native bundles on Linux, macOS, and Windows, then publishes the installers to a GitHub Release.
-
-Create and push a tag after updating the version in `package.json` and `src-tauri/tauri.conf.json`:
+If you downloaded PasswordPrison from a source you trust, you can remove the macOS quarantine attribute using Terminal:
 
 ```bash
-git tag v0.1.0
-git push origin v0.1.0
+xattr -d com.apple.quarantine /Applications/PasswordPrison.app
 ```
 
-The workflow requires the repository's standard `GITHUB_TOKEN`, which GitHub Actions provides automatically. The generated release assets vary by platform and bundle target, such as `.dmg`, `.msi` or `.exe`, and Linux packages.
+### Windows
 
-## Security Notes
+Windows releases are provided as `.msi` and `.exe` (NSIS) installers.
 
-PasswordPrison is under active development. Review the implementation and back up your vault before relying on it for important credentials.
+1. Download the latest `.msi` or `.exe` file.
+2. Double-click the installer to launch it.
+3. Follow the setup wizard, accepting the default options unless you need a custom install location.
+4. Launch PasswordPrison from the Start Menu or desktop shortcut once installation finishes.
 
-- The vault is stored locally on the device; there is no sync service yet.
-- Losing the master key may make encrypted passwords unrecoverable.
-- Uninstalling the application and deleting vault data are separate operations on most operating systems.
-- Deleting a file does not guarantee that every copy is removed from backups or storage media.
+PasswordPrison is currently distributed without a Windows code-signing certificate, so Windows may display a SmartScreen warning during installation.
 
-## Recommended IDE Setup
+#### If Windows says "Windows protected your PC" (SmartScreen)
 
-- [VS Code](https://code.visualstudio.com/)
-- [Tauri VS Code extension](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode)
-- [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+1. On the SmartScreen prompt, click **More info**.
+2. Click **Run anyway**.
+3. Continue through the installer as normal.
+
+#### If your antivirus flags the installer
+
+Unsigned applications are sometimes flagged by antivirus software as a precaution rather than due to detected malicious behavior. If you downloaded PasswordPrison from the official [GitHub Releases](https://github.com/johnathantam/PasswordPrison/releases) page and trust the source, you can allow the file through your antivirus or add an exclusion for it. Consult your antivirus software's documentation for how to do this.
+
+### Linux
+
+Linux releases are provided as `.AppImage`, `.deb`, and `.rpm` packages, depending on what is published for a given release. Check the Releases page for the exact set of formats available.
+
+#### AppImage
+
+1. Download the `.AppImage` file.
+2. Make it executable:
+
+   ```bash
+   chmod +x PasswordPrison_*.AppImage
+   ```
+
+3. Run it directly:
+
+   ```bash
+   ./PasswordPrison_*.AppImage
+   ```
+
+#### Debian / Ubuntu (.deb)
+
+1. Download the `.deb` file.
+2. Install it with `apt`:
+
+   ```bash
+   sudo apt install ./PasswordPrison_*.deb
+   ```
+
+3. Launch PasswordPrison from your application menu, or run `passwordprison` from a terminal.
+
+#### Fedora / RHEL (.rpm)
+
+1. Download the `.rpm` file.
+2. Install it with `dnf`:
+
+   ```bash
+   sudo dnf install ./PasswordPrison-*.rpm
+   ```
+
+3. Launch PasswordPrison from your application menu, or run `passwordprison` from a terminal.
+
+#### If the AppImage won't run
+
+Some distributions need FUSE installed to run AppImages directly:
+
+```bash
+sudo apt install libfuse2
+```
+
+If FUSE isn't available or you'd rather not install it, extract and run the AppImage instead:
+
+```bash
+./PasswordPrison_*.AppImage --appimage-extract
+./squashfs-root/AppRun
+```
