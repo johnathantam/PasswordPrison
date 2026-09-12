@@ -1,5 +1,6 @@
 import { Globe, Star } from "lucide-react";
 import { EncryptedVaultItem } from "../../../types/encryptedVaultItem";
+import { ItemFavicon } from "../../ItemFavicon/ItemFavicon";
 import "./ItemListing.css";
 
 interface ItemListingProps {
@@ -22,7 +23,7 @@ function ItemListing({ item, onClick, onFavourite }: ItemListingProps) {
     return (
         <div className="item-listing-container" onClick={handleClick}>
             <div className="item-listing-icon">
-                <Globe size={16} />
+                <ItemFavicon url={item.urls[0]} size={16} ></ItemFavicon>
             </div>
 
             <div className="item-listing-content">

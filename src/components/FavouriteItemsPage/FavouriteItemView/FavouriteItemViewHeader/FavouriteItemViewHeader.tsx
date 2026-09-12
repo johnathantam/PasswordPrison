@@ -1,5 +1,6 @@
-import { KeyRound, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { EncryptedVaultItem } from "../../../../types/encryptedVaultItem";
+import { ItemFavicon } from "../../../ItemFavicon/ItemFavicon";
 import "./FavouriteItemViewHeader.css";
 
 interface FavouriteItemViewHeaderProps {
@@ -15,7 +16,7 @@ function FavouriteItemViewHeader({ item, onFavourite }: FavouriteItemViewHeaderP
     return (
         <div className="favourite-item-view-header">
             <div className="favourite-item-view-icon">
-                <KeyRound size={20} />
+                <ItemFavicon url={item.urls[0]} size={20}/>
             </div>
 
             <div className="favourite-item-view-header-content">

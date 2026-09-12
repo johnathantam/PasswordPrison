@@ -1,5 +1,6 @@
-import { KeyRound, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { EncryptedVaultItem } from "../../../../types/encryptedVaultItem";
+import { ItemFavicon } from "../../../ItemFavicon/ItemFavicon";
 import "./TrashedItemViewHeader.css";
 
 interface TrashedItemViewHeaderProps {
@@ -15,7 +16,7 @@ function TrashedItemViewHeader({ item, onFavourite }: TrashedItemViewHeaderProps
     return (
         <div className="trashed-item-view-header">
             <div className="trashed-item-view-icon">
-                <KeyRound size={20} />
+                <ItemFavicon url={item.urls[0]} size={20} />
             </div>
 
             <div className="trashed-item-view-header-content">
