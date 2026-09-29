@@ -1,5 +1,7 @@
 # PasswordPrison
 
+![PasswordPrison app preview](docs/images/appPreview.png)
+
 PasswordPrison is a cross-platform desktop password manager built with Tauri, React, TypeScript, and Rust. It stores vault items locally and encrypts saved passwords before writing them to disk.
 
 ## Features
